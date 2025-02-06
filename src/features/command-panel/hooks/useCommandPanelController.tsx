@@ -12,7 +12,7 @@ export const useCommandPanelController = () => {
   const currentTheme = useSelector((state: any) => state.currentTheme.value);
   const currentDataView = useSelector((state: any) => state.dataViewMode.current);
   const [language, setLanguage] = React.useState(localStorage.getItem("devLanguage") || "EN");
-  const [selectionMode, setSelectionMode] = React.useState(localStorage.getItem("selectionMode") === "true");
+  const [highlightModeEnabled, setHighlightModeEnabled] = React.useState(localStorage.getItem("highlightMode") === "true");
 
   const location = useLocation();
   const isEnabled = !/^(\/(auth|landing)?)/.test(location.pathname);
@@ -28,13 +28,13 @@ export const useCommandPanelController = () => {
     return () => window.removeEventListener("languageChanged", handleLanguageChange as EventListener);
   }, []);
 
-  // Listen for selection mode changes.
+  // Listen for highlight mode changes.
   React.useEffect(() => {
-    const handleSelectionModeChange = (e: CustomEvent) => {
-      setSelectionMode(e.detail);
+    const handleHighlightModeChange = (e: CustomEvent) => {
+      setHighlightModeEnabled(e.detail);
     };
-    window.addEventListener("selectionModeChanged", handleSelectionModeChange as EventListener);
-    return () => window.removeEventListener("selectionModeChanged", handleSelectionModeChange as EventListener);
+    window.addEventListener("highlightModeChanged", handleHighlightModeChange as EventListener);
+    return () => window.removeEventListener("highlightModeChanged", handleHighlightModeChange as EventListener);
   }, []);
 
   // Global keyboard event for toggling panel.
@@ -51,20 +51,20 @@ export const useCommandPanelController = () => {
     return () => document.removeEventListener("keydown", down);
   }, [isEnabled]);
 
-  // Toggle selection mode.
-  const toggleSelectionMode = () => {
-    setSelectionMode(prev => {
+  // Toggle highlight mode.
+  const toggleHighlightMode = () => {
+    setHighlightModeEnabled(prev => {
       const newMode = !prev;
-      localStorage.setItem("selectionMode", String(newMode));
-      window.dispatchEvent(new CustomEvent("selectionModeChanged", { detail: newMode }));
+      localStorage.setItem("highlightMode", String(newMode));
+      window.dispatchEvent(new CustomEvent("highlightModeChanged", { detail: newMode }));
       return newMode;
     });
   };
 
   // Handle command selection.
   const handleSelect = (item: any) => {
-    if (item.title === "Toggle Selection Mode") {
-      toggleSelectionMode();
+    if (item.title === "Toggle Highlight Mode") {
+      toggleHighlightMode();
       setOpen(false);
       setNestedCommands(null);
     } else if (item.children) {
@@ -85,7 +85,7 @@ export const useCommandPanelController = () => {
     if (title === "Toggle Theme") return currentTheme;
     if (title === "Select Language") return language;
     if (title === "Change Data View") return currentDataView;
-    if (title === "Toggle Selection Mode") return selectionMode ? "ON" : "OFF";
+    if (title === "Toggle Highlight Mode") return highlightModeEnabled ? "ON" : "OFF";
     return null;
   };
 
@@ -112,5 +112,6 @@ export const useCommandPanelController = () => {
     flattenedCommands,
     handleSelect,
     getCurrentSelection,
+    highlightModeEnabled,
   };
 };

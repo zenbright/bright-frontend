@@ -12,7 +12,7 @@ import {
     Database
 } from 'lucide-react'
 import {
-    toggleSelectionMode,
+    toggleHighlightMode,
     toggleLanguage,
     toggleTheme,
     changeDataView,
@@ -66,10 +66,10 @@ export const commandData = {
     ],
     Developer: [
         {
-            title: "Toggle Selection Mode",
+            title: "Toggle Highlight Mode",
             icon: <MousePointer className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
             shortcut: "S",
-            action: toggleSelectionMode,
+            action: toggleHighlightMode,
         },
         {
             title: "Select Language",

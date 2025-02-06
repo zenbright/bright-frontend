@@ -9,7 +9,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import { useSelectionModeHighlighter } from "../hooks/useSelectionModeHighlighter";
+import { useElementHighlighter } from "../hooks/useElementHighlighter";
 import { useCommandPanelController } from "../hooks/useCommandPanelController";
 import { commandData } from "../data/data";
 
@@ -24,8 +24,8 @@ export const CommandPanel: React.FC = () => {
     getCurrentSelection,
   } = useCommandPanelController();
 
-  // Render highlighter if selection mode is enabled (handled via hook).
-  useSelectionModeHighlighter(localStorage.getItem("selectionMode") === "true");
+  // Use the updated hook with the new highlight mode storage key.
+  useElementHighlighter(localStorage.getItem("highlightMode") === "true");
 
   if (!open) return null;
 

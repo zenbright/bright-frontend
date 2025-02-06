@@ -11,13 +11,13 @@ export const toggleTheme = () => {
   console.log('Theme toggled to', newTheme)
 }
 
-// Now actually toggle selection mode by updating localStorage and emitting an event.
-export const toggleSelectionMode = () => {
-  const current = localStorage.getItem('selectionMode') === 'true'
+// Now toggle highlight mode.
+export const toggleHighlightMode = () => {
+  const current = localStorage.getItem('highlightMode') === 'true'
   const newMode = !current
-  localStorage.setItem('selectionMode', newMode.toString())
-  window.dispatchEvent(new CustomEvent('selectionModeChanged', { detail: newMode }))
-  console.log('Selection mode toggled to', newMode)
+  localStorage.setItem('highlightMode', newMode.toString())
+  window.dispatchEvent(new CustomEvent('highlightModeChanged', { detail: newMode }))
+  console.log('Highlight mode toggled to', newMode)
 }
 
 // Toggle language: update localStorage and dispatch an event.
