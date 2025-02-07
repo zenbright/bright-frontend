@@ -44,33 +44,57 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleSelect = (item: any) => {
-    if (props.setOpen) {
-      props.setOpen(false);
-    }
+    if (props.setOpen) props.setOpen(false);
     ctrlHandleSelect(item);
   };
 
   // Handle arrow key navigation.
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    console.log("Key pressed:", e.key, "Current selected index:", selectedIndex, "of", flatItems.length);
     if (!flatItems.length) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % flatItems.length);
+      setSelectedIndex((prev) => {
+        const next = (prev + 1) % flatItems.length;
+        console.log("ArrowDown, new index:", next);
+        return next;
+      });
     }
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev - 1 + flatItems.length) % flatItems.length);
+      setSelectedIndex((prev) => {
+        const next = (prev - 1 + flatItems.length) % flatItems.length;
+        console.log("ArrowUp, new index:", next);
+        return next;
+      });
     }
     if (e.key === "Enter") {
       e.preventDefault();
+      console.log("Enter pressed, selecting item:", flatItems[selectedIndex]);
       handleSelect(flatItems[selectedIndex]);
     }
   };
 
+  // Ref for the outer container.
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // On open, reset selectedIndex and focus container so that key events are captured.
+  React.useEffect(() => {
+    if (open) {
+      setSelectedIndex(0);
+      containerRef.current?.focus();
+    }
+  }, [open]);
+
   if (!open) return null;
 
   return (
-    <div onKeyDown={handleKeyDown} tabIndex={0} autoFocus>
+    <div
+      ref={containerRef}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      style={{ outline: "none", overflow: "hidden" }}
+    >
       <Command className="rounded-lg border shadow-md md:min-w-[450px]">
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -82,6 +106,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                 key={index}
                 disabled={item.disabled}
                 onSelect={() => handleSelect(item)}
+                data-selected={selectedIndex === index ? "true" : undefined}
+                className={selectedIndex === index ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
               >
                 {item.icon || null}
                 <span>{item.title}</span>
@@ -100,6 +126,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                   key={index}
                   disabled={item.disabled}
                   onSelect={() => handleSelect(item)}
+                  data-selected={selectedIndex === index ? "true" : undefined}
+                  className={selectedIndex === index ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
                 >
                   {item.icon || null}
                   <span>{item.title}</span>
@@ -116,6 +144,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
               {flattenedCommands.length > 7 && (
                 <CommandItem
                   onSelect={() => handleSelect({ title: "Show More" })}
+                  data-selected={selectedIndex === displayCommands.length ? "true" : undefined}
+                  className={selectedIndex === displayCommands.length ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
                 >
                   <span>Show More</span>
                 </CommandItem>
@@ -123,7 +153,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
             </>
           ) : (
             // Grouped view.
-            // Use an external counter to track flat index.
             (() => {
               let flatIndex = 0;
               return Object.entries(commandData).map(([groupName, items], groupIndex, groups) => (
@@ -137,6 +166,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                           key={item.title}
                           disabled={item.disabled}
                           onSelect={() => handleSelect(item)}
+                          data-selected={selectedIndex === currentIndex ? "true" : undefined}
+                          className={selectedIndex === currentIndex ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
                         >
                           {item.icon || null}
                           <span>{item.title}</span>
