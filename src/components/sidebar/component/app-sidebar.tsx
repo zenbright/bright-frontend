@@ -296,85 +296,179 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         isPersistSidebarOn();
     }, [open]);
 
-    return (
-        <Sidebar
-            collapsible="icon"
-            onMouseEnter={() => {
-                if (isPersistSidebarOn()) return;
-                setOpen(true);
-            }}
-            onMouseLeave={() => {
-                if (isPersistSidebarOn()) return;
-                setShouldCheckMousePosition(true);
-            }}
-        >
-            <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton className="py-6 text-base">
-                                    <Layers2 />
-                                    Workspace
-                                    <ChevronDown className="ml-auto" />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
-                                <DropdownMenuItem>
-                                    <span>Zen Bright</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Tutur3u</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarHeader>
-            <SidebarContent>
-                <CollapsibleSidebarGroup
-                    label="Project Management"
-                    items={items}
-                    actionTitle="Add Project"
-                    open={open}
-                />
-                <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
-                <CollapsibleSidebarGroup label="About" items={itemsAbout} />
-            </SidebarContent>
+    // Define widths.
+    const collapsedWidth = "3rem";
+    const extendedWidth = "14rem";
+    const overlayWidth = `calc(${extendedWidth} - ${collapsedWidth})`;
 
-            <SidebarFooter>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton>
-                                    <UserCircle /> Mudoker
-                                    <ChevronUp className="ml-auto" />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent
-                                side="top"
-                                className="w-[--radix-popper-anchor-width]"
-                                close={!open}
-                            >
-                                <DropdownMenuItem>
-                                    <span>Profile</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <NavLink to={`/settings`}>
-                                        <span className="text-sm">
-                                            {'Settings'}
-                                        </span>
-                                    </NavLink>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarFooter>
-        </Sidebar>
+    // Mouse event handlers.
+    const handleEnter = () => {
+        if (isPersistSidebarOn()) return;
+        setOpen(true);
+    };
+    const handleLeave = () => {
+        if (isPersistSidebarOn()) return;
+        // ...existing logic...
+        setShouldCheckMousePosition(true);
+    };
+
+    return (
+        <div className="relative">
+            {/* Reserved (base) sidebar: occupies space in the layout */}
+            <div
+                className="relative z-40 transition-all ease-in-out duration-300"
+                style={{ width: collapsedWidth }}
+                onMouseEnter={handleEnter}
+                onMouseLeave={handleLeave}
+            >
+                <Sidebar collapsible="icon">
+                    <SidebarHeader>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton className="py-6 text-base">
+                                            <Layers2 />
+                                            Workspace
+                                            <ChevronDown className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
+                                        <DropdownMenuItem>
+                                            <span>Zen Bright</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span>Tutur3u</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarHeader>
+                    <SidebarContent>
+                        <CollapsibleSidebarGroup
+                            label="Project Management"
+                            items={items}
+                            actionTitle="Add Project"
+                            open={open}
+                        />
+                        <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
+                        <CollapsibleSidebarGroup label="About" items={itemsAbout} />
+                    </SidebarContent>
+
+                    <SidebarFooter>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton>
+                                            <UserCircle /> Mudoker
+                                            <ChevronUp className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent
+                                        side="top"
+                                        className="w-[--radix-popper-anchor-width]"
+                                        close={!open}
+                                    >
+                                        <DropdownMenuItem>
+                                            <span>Profile</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <NavLink to={`/settings`}>
+                                                <span className="text-base">
+                                                    {'Settings'}
+                                                </span>
+                                            </NavLink>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span>Sign out</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarFooter>
+                </Sidebar>
+            </div>
+
+            {/* Extended overlay always rendered; slides in/out via transform */}
+            <div
+                className={`absolute top-0 left-0 z-50 transition-transform ease-in-out duration-300 ${open ? 'translate-x-0' : '-translate-x-full'}`}
+                style={{ marginLeft: collapsedWidth, width: overlayWidth }}
+                onMouseEnter={handleEnter}
+                onMouseLeave={handleLeave}
+            >
+                <Sidebar collapsible="icon">
+                    <SidebarHeader>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton className="py-6 text-base">
+                                            <Layers2 />
+                                            Workspace
+                                            <ChevronDown className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
+                                        <DropdownMenuItem>
+                                            <span>Zen Bright</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span>Tutur3u</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarHeader>
+                    <SidebarContent>
+                        <CollapsibleSidebarGroup
+                            label="Project Management"
+                            items={items}
+                            actionTitle="Add Project"
+                            open={open}
+                        />
+                        <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
+                        <CollapsibleSidebarGroup label="About" items={itemsAbout} />
+                    </SidebarContent>
+
+                    <SidebarFooter>
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <SidebarMenuButton>
+                                            <UserCircle /> Mudoker
+                                            <ChevronUp className="ml-auto" />
+                                        </SidebarMenuButton>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent
+                                        side="top"
+                                        className="w-[--radix-popper-anchor-width]"
+                                        close={!open}
+                                    >
+                                        <DropdownMenuItem>
+                                            <span>Profile</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <NavLink to={`/settings`}>
+                                                <span className="text-base">
+                                                    {'Settings'}
+                                                </span>
+                                            </NavLink>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <span>Sign out</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarFooter>
+                </Sidebar>
+            </div>
+        </div>
     );
 }
