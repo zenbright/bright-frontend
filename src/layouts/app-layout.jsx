@@ -20,7 +20,7 @@ export const AppLayout = () => {
     }, []);
 
     return (
-        <div className="flex h-full">
+        <div className="relative h-full">
             <SidebarProvider
                 style={{
                     '--sidebar-width': '14rem',
@@ -32,6 +32,7 @@ export const AppLayout = () => {
                 <AppSidebar open={open} setOpen={setOpen} />
                 <Outlet />
             </SidebarProvider>
+
             {/* Command Panel overlay */}
             {commandPanelOpen && (
                 <div
