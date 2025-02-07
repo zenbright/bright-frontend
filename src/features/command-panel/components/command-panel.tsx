@@ -70,7 +70,7 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   if (!open) return null;
 
   return (
-    <div onKeyDown={handleKeyDown} tabIndex={0}>
+    <div onKeyDown={handleKeyDown} tabIndex={0} autoFocus>
       <Command className="rounded-lg border shadow-md md:min-w-[450px]">
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -82,7 +82,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                 key={index}
                 disabled={item.disabled}
                 onSelect={() => handleSelect(item)}
-                className={selectedIndex === index ? "bg-gray-200" : ""}
               >
                 {item.icon || null}
                 <span>{item.title}</span>
@@ -101,7 +100,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                   key={index}
                   disabled={item.disabled}
                   onSelect={() => handleSelect(item)}
-                  className={selectedIndex === index ? "bg-gray-200" : ""}
                 >
                   {item.icon || null}
                   <span>{item.title}</span>
@@ -118,7 +116,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
               {flattenedCommands.length > 7 && (
                 <CommandItem
                   onSelect={() => handleSelect({ title: "Show More" })}
-                  className={selectedIndex === displayCommands.length ? "bg-gray-200" : ""}
                 >
                   <span>Show More</span>
                 </CommandItem>
@@ -140,7 +137,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                           key={item.title}
                           disabled={item.disabled}
                           onSelect={() => handleSelect(item)}
-                          className={selectedIndex === currentIndex ? "bg-gray-200" : ""}
                         >
                           {item.icon || null}
                           <span>{item.title}</span>
