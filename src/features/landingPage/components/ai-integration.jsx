@@ -260,15 +260,15 @@ export const GeminiLogo = ({ className }) => {
             <defs>
                 <radialGradient
                     id="prefix__paint0_radial_980_20147"
-                    cx="0"
-                    cy="0"
+                    cx="50%"
+                    cy="50%"
                     r="1"
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="matrix(16.1326 5.4553 -43.70045 129.2322 1.588 6.503)"
                 >
-                    <stop offset=".067" stop-color="#9168C0" />
-                    <stop offset=".343" stop-color="#5684D1" />
-                    <stop offset=".672" stop-color="#1BA1E3" />
+                    <stop offset=".067" stopColor="#9168C0" />
+                    <stop offset=".343" stopColor="#5684D1" />
+                    <stop offset=".672" stopColor="#1BA1E3" />
                 </radialGradient>
             </defs>
         </svg>
@@ -294,10 +294,10 @@ export const MetaIconOutline = ({ className }) => {
                     gradientTransform="matrix(1, 0, 0, -1, 0, 192)"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop offset="0" stop-color="#0064e1" />
-                    <stop offset="0.4" stop-color="#0064e1" />
-                    <stop offset="0.83" stop-color="#0073ee" />
-                    <stop offset="1" stop-color="#0082fb" />
+                    <stop offset="0" stopColor="#0064e1" />
+                    <stop offset="0.4" stopColor="#0064e1" />
+                    <stop offset="0.83" stopColor="#0073ee" />
+                    <stop offset="1" stopColor="#0082fb" />
                 </linearGradient>
                 <linearGradient
                     id="linear-gradient-2"
@@ -308,8 +308,8 @@ export const MetaIconOutline = ({ className }) => {
                     gradientTransform="matrix(1, 0, 0, -1, 0, 192)"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop offset="0" stop-color="#0082fb" />
-                    <stop offset="1" stop-color="#0064e0" />
+                    <stop offset="0" stopColor="#0082fb" />
+                    <stop offset="1" stopColor="#0064e0" />
                 </linearGradient>
             </defs>
             <path

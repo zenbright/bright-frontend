@@ -51,7 +51,8 @@ export function PlaceholdersAndVanishInput({
         if (!inputRef.current) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext('2d');
+        // Use willReadFrequently for faster readback operations.
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return;
 
         canvas.width = 800;
@@ -125,11 +126,12 @@ export function PlaceholdersAndVanishInput({
                     }
                 }
                 newDataRef.current = newArr;
-                const ctx = canvasRef.current?.getContext('2d');
+                // Use willReadFrequently for faster readback operations.
+                const ctx = canvasRef.current?.getContext('2d', { willReadFrequently: true });
                 if (ctx) {
                     ctx.clearRect(pos, 0, 800, 800);
                     newDataRef.current.forEach(t => {
-                        const { x: n, y: i, r: s, color: color } = t;
+                        const { x: n, y: i, r: s, color } = t;
                         if (n > pos) {
                             ctx.beginPath();
                             ctx.rect(n, i, s, s);
