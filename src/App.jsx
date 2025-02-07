@@ -79,7 +79,8 @@ const router = createBrowserRouter(
             {/* Catch-all for unauthenticated 404 */}
             <Route path="*" element={<Notfoundpage />} />
         </Route>
-    )
+    ),
+    { future: { v7_startTransition: true, v7_relativeSplatPath: true } }
 );
 
 const queryClient = new QueryClient();

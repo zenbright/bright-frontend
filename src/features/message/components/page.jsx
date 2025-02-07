@@ -8,7 +8,7 @@ import { MessageContent } from './message-content';
 
 const FakeMessages = Array.from({ length: 10 }, (_, i) => ({
     id: i,
-    userName: faker.internet.userName(),
+    userName: faker.internet.username(),
     profileImage: faker.image.avatar(),
     message: faker.lorem.sentence(),
     sentTime: faker.date.recent(),
