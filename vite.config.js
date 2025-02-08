@@ -22,4 +22,35 @@ export default defineConfig({
     server: {
         host: '0.0.0.0',
     },
+    build: {
+        chunkSizeWarningLimit: 500,
+        rollupOptions: {
+            external: ['@faker-js/faker'], // mark faker as external
+            output: {
+                globals: {
+                    '@faker-js/faker': 'faker'
+                },
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        const match = id.match(/node_modules\/(?:\.pnpm\/)?([^\/]+)/);
+                        if (match) {
+                            let pkgName = match[1];
+                            // If scoped package, remove version info and fix delimiter from PNPM
+                            if (pkgName.startsWith('@')) {
+                                // Split by '@' yields ["", "faker-js_faker", "9.4.0-BK-y1tDw"]
+                                const segs = pkgName.split('@');
+                                // Reconstruct the package name (replace '_' with '/' for scoped packages)
+                                pkgName = `@${segs[1]}`.replace('_', '/');
+                            } else {
+                                // For non-scoped packages, remove version info if present
+                                pkgName = pkgName.split('@')[0];
+                            }
+                            return `vendor-${pkgName}`;
+                        }
+                        return 'vendor-other';
+                    }
+                },
+            },
+        },
+    },
 });

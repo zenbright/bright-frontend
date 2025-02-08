@@ -219,11 +219,6 @@ layer(base);
 }
 
 @layer utilities {
-  /* Apply dark mode based on data-theme */
-  :root[data-theme='dark-default'] {
-    /* Removed invalid @apply dark; */
-  }
-
   /* Utilities Layer */
 }
 
