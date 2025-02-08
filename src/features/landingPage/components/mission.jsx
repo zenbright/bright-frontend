@@ -7,7 +7,7 @@ export const MissionGroup = () => {
         return (
             <div>
                 <div className="relative w-full max-w-xs">
-                    <div className="absolute inset-0 h-full w-full scale-[0.80] transform rounded-full bg-red-500 bg-gradient-to-r from-blue-500 to-teal-500 blur-3xl" />
+                    <div className="absolute inset-0 h-full w-full scale-[0.80] transform rounded-full bg-red-500 bg-linear-to-r from-blue-500 to-teal-500 blur-3xl" />
                     <div className="relative flex h-full flex-col items-start justify-end overflow-hidden rounded-2xl border border-slate-200 bg-neutral-900 px-4 py-8 shadow-xl">
                         <div className="mb-4 flex h-5 w-5 items-center justify-center rounded-full border border-gray-500">
                             <svg

@@ -8,19 +8,19 @@ const ProjectBreadCrumbs = ({
 }) => {
     return (
         <div className="flex items-center pt-2 text-xs font-bold text-project_text">
-            <button className="text-project_text hover:text-gray-500 focus:outline-none">
+            <button className="text-project_text hover:text-gray-500 focus:outline-hidden">
                 PROJECTS
             </button>
 
             <ChevronRight className="h-5 w-5" />
 
-            <button className="text-project_text hover:text-gray-500 focus:outline-none">
+            <button className="text-project_text hover:text-gray-500 focus:outline-hidden">
                 {projectType}
             </button>
 
             <ChevronRight className="h-5 w-5" />
 
-            <button className="text-project_text hover:text-gray-500 focus:outline-none">
+            <button className="text-project_text hover:text-gray-500 focus:outline-hidden">
                 {projectOwner}
             </button>
         </div>

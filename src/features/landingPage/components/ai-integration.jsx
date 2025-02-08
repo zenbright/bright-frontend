@@ -74,7 +74,7 @@ const Skeleton = () => {
     }, []);
     return (
         <div className="relative flex h-full items-center justify-center overflow-hidden p-8">
-            <div className="flex flex-shrink-0 flex-row items-center justify-center gap-2">
+            <div className="flex shrink-0 flex-row items-center justify-center gap-2">
                 <Container className="circle-1 h-8 w-8">
                     <ClaudeLogo className="h-4 w-4" />
                 </Container>
@@ -91,7 +91,7 @@ const Skeleton = () => {
                     <GeminiLogo className="h-4 w-4" />
                 </Container>
             </div>
-            <div className="absolute top-20 z-40 m-auto h-40 w-px animate-move bg-gradient-to-b from-transparent via-cyan-500 to-transparent">
+            <div className="absolute top-20 z-40 m-auto h-40 w-px animate-move bg-linear-to-b from-transparent via-cyan-500 to-transparent">
                 <div className="absolute -left-10 top-1/2 h-32 w-10 -translate-y-1/2">
                     <Sparkles />
                 </div>

@@ -158,7 +158,7 @@ export const Compare = ({
         >
             <AnimatePresence initial={false}>
                 <motion.div
-                    className="absolute top-0 z-30 m-auto h-full w-px bg-gradient-to-b from-transparent from-[5%] via-indigo-500 to-transparent to-[95%]"
+                    className="absolute top-0 z-30 m-auto h-full w-px bg-linear-to-b from-transparent from-5% via-indigo-500 to-transparent to-95%"
                     style={{
                         left: `${sliderXPercent}%`,
                         top: '0',
@@ -166,8 +166,8 @@ export const Compare = ({
                     }}
                     transition={{ duration: 0 }}
                 >
-                    <div className="absolute left-0 top-1/2 z-20 h-full w-36 -translate-y-1/2 bg-gradient-to-r from-indigo-400 via-transparent to-transparent opacity-50 [mask-image:radial-gradient(100px_at_left,white,transparent)]" />
-                    <div className="absolute left-0 top-1/2 z-10 h-1/2 w-10 -translate-y-1/2 bg-gradient-to-r from-cyan-400 via-transparent to-transparent opacity-100 [mask-image:radial-gradient(50px_at_left,white,transparent)]" />
+                    <div className="absolute left-0 top-1/2 z-20 h-full w-36 -translate-y-1/2 bg-linear-to-r from-indigo-400 via-transparent to-transparent opacity-50 [mask-image:radial-gradient(100px_at_left,white,transparent)]" />
+                    <div className="absolute left-0 top-1/2 z-10 h-1/2 w-10 -translate-y-1/2 bg-linear-to-r from-cyan-400 via-transparent to-transparent opacity-100 [mask-image:radial-gradient(50px_at_left,white,transparent)]" />
                     <div className="absolute -right-10 top-1/2 h-3/4 w-10 -translate-y-1/2 [mask-image:radial-gradient(100px_at_left,white,transparent)]">
                         <MemoizedSparklesCore
                             background="transparent"
@@ -190,7 +190,7 @@ export const Compare = ({
                     {firstImage ? (
                         <motion.div
                             className={cn(
-                                'absolute inset-0 z-20 h-full w-full flex-shrink-0 select-none overflow-hidden rounded-2xl',
+                                'absolute inset-0 z-20 h-full w-full shrink-0 select-none overflow-hidden rounded-2xl',
                                 firstImageClassName
                             )}
                             style={{
@@ -202,7 +202,7 @@ export const Compare = ({
                                 alt="first image"
                                 src={firstImage}
                                 className={cn(
-                                    'absolute inset-0 z-20 h-full w-full flex-shrink-0 select-none rounded-2xl',
+                                    'absolute inset-0 z-20 h-full w-full shrink-0 select-none rounded-2xl',
                                     firstImageClassName
                                 )}
                                 draggable={false}
@@ -215,7 +215,7 @@ export const Compare = ({
                 {secondImage ? (
                     <motion.img
                         className={cn(
-                            'absolute left-0 top-0 z-[19] h-full w-full select-none rounded-2xl',
+                            'absolute left-0 top-0 z-19 h-full w-full select-none rounded-2xl',
                             secondImageClassname
                         )}
                         alt="second image"

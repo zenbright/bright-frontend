@@ -98,7 +98,7 @@ const TaskActivityComponent = ({
                         alt={isComment ? 'Thomas Lean image' : 'Bonnie image'}
                     />
                 </span>
-                <div className="bg-discussion-background flex flex-col rounded-lg border border-discussion_border p-4 shadow-sm">
+                <div className="bg-discussion-background flex flex-col rounded-lg border border-discussion_border p-4 shadow-xs">
                     <div
                         className={`items-center justify-between ${isComment ? 'mb-3' : ''} sm:flex`}
                     >

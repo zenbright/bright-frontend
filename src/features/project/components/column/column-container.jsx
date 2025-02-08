@@ -82,7 +82,7 @@ export function ColumnContainer({
                     {/* Helper buttons */}
                     <div className="flex items-center">
                         <Plus
-                            className="mr-2 h-5 w-5 hover:rounded-md hover:dark:bg-slate-600 hover:bg-slate-300/50"
+                            className="mr-2 h-5 w-5 hover:rounded-md dark:hover:bg-slate-600 hover:bg-slate-300/50"
                             onClick={() => {
                                 setIsCreateNewTask(true);
                             }}

@@ -60,7 +60,7 @@ export const MessagePage = () => {
                 <input
                     type="text"
                     placeholder="Search..."
-                    className="mx-2 mb-1 mt-5 h-10 rounded-md bg-gray-100/80 px-4 text-sm outline-none hover:bg-gray-200/80"
+                    className="mx-2 mb-1 mt-5 h-10 rounded-md bg-gray-100/80 px-4 text-sm outline-hidden hover:bg-gray-200/80"
                     onChange={handleSearchInputChange}
                 />
 

@@ -204,7 +204,7 @@ export function PlaceholdersAndVanishInput({
                 value={value}
                 type="text"
                 className={cn(
-                    'relative z-50 h-full w-full rounded-full border-none bg-transparent pl-4 pr-20 text-sm text-white focus:outline-none focus:ring-0 sm:pl-10 sm:text-base',
+                    'relative z-50 h-full w-full rounded-full border-none bg-transparent pl-4 pr-20 text-sm text-white focus:outline-hidden focus:ring-0 sm:pl-10 sm:text-base',
                     animating && 'text-transparent'
                 )}
             />

@@ -220,7 +220,7 @@ export const Page = () => {
                                     duration: 0.8,
                                     ease: 'easeInOut',
                                 }}
-                                className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-center font-monument text-4xl font-medium tracking-tight text-transparent md:text-4xl"
+                                className="mt-8 bg-linear-to-br from-slate-300 to-slate-500 bg-clip-text text-center font-monument text-4xl font-medium tracking-tight text-transparent md:text-4xl"
                             >
                                 Your data is safe <br /> with us.
                                 <div className="mt-10 flex flex-col items-center gap-6 text-xl">

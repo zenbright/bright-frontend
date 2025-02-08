@@ -91,7 +91,7 @@ export const MessageView = () => {
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="mx-2 mb-1 h-10 w-full rounded-lg bg-gray-200 px-4 py-2 outline-none"
+                        className="mx-2 mb-1 h-10 w-full rounded-lg bg-gray-200 px-4 py-2 outline-hidden"
                         onChange={handleSearchInputChange}
                     />
                 </div>
