@@ -1,7 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-const {
-    default: flattenColorPalette,
-} = require('tailwindcss/lib/util/flattenColorPalette');
+// Remove the require for flattenColorPalette
+// const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
+
+/* Add custom flattenColorPalette implementation */
+function flattenColorPalette(colors, prefix = '') {
+    let result = {};
+    for (const [key, value] of Object.entries(colors)) {
+        if (typeof value === 'object') {
+            Object.assign(result, flattenColorPalette(value, prefix ? `${prefix}-${key}` : key));
+        } else {
+            result[prefix ? `${prefix}-${key}` : key] = value;
+        }
+    }
+    return result;
+}
 
 function addVariablesForColors({ addBase, theme }) {
     let allColors = flattenColorPalette(theme('colors'));
@@ -233,6 +245,6 @@ module.exports = {
     plugins: [
         addVariablesForColors,
         require('tailwindcss-animate'),
-        require('tailwind-scrollbar')({ nocompatible: true }),
+        // require('tailwind-scrollbar'), // remove or comment out if not needed
     ],
 };
