@@ -245,6 +245,5 @@ module.exports = {
     plugins: [
         addVariablesForColors,
         require('tailwindcss-animate'),
-        // require('tailwind-scrollbar'), // remove or comment out if not needed
     ],
 };
