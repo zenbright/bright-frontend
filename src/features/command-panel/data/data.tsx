@@ -3,7 +3,13 @@ import {
     HelpCircle,
     ArrowRightCircle,
     Sun,
-    Database
+    Database,
+    User,
+    Settings,
+    Home,
+    DatabaseZap,
+    DatabaseBackup,
+    Moon,
 } from 'lucide-react'
 import {
     toggleTheme,
@@ -26,18 +32,22 @@ export const commandData = {
             children: [
                 {
                     title: "Dashboard",
+                    icon: <Home className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
                     action: () => window.location.href = "/dashboard",
                 },
                 {
                     title: "Profile",
+                    icon: <User className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
                     action: () => window.location.href = "/profile",
                 },
                 {
                     title: "Settings",
+                    icon: <Settings className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
                     action: () => window.location.href = "/settings",
                 },
                 {
-                    title: "Back",
+                    title: "Go to previous page",
+                    icon: <ArrowRightCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
                     action: () => { window.history.back() },
                 },
             ],
@@ -48,13 +58,35 @@ export const commandData = {
             title: "Toggle Theme",
             icon: <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
             shortcut: "T",
-            action: toggleTheme,
+            children: [
+                {
+                    title: "Light Default",
+                    icon: <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+                },
+                {
+                    title: "Dark Default",
+                    icon: <Moon className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+                },
+            ],
         },
         {
             title: "Change Data View",
             icon: <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
             shortcut: "V",
-            action: changeDataView,
+            children: [
+                {
+                    title: "Fake Data",
+                    icon: <DatabaseZap className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+                },
+                {
+                    title: "Real Data",
+                    icon: <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+                },
+                {
+                    title: "Empty Data",
+                    icon: <DatabaseBackup className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+                }
+            ],
         },
     ],
 }

@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/command";
 import { useCommandPanelController } from "../hooks/useCommandPanelController";
 import { commandData } from "../data/data";
+import { ViewMode } from "@/features/dev-dock/data/type";
+import { setDataViewMode } from "@/features/dev-dock/utils/data-slice";
+import { useDispatch } from "react-redux";
 
 type CommandPanelProps = {
   open?: boolean;
@@ -24,8 +27,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
     modKey,
     handleSelect: ctrlHandleSelect,
   } = useCommandPanelController();
-
-  const [open, setOpen] = React.useState(props.open || false);
+  const dispatch = useDispatch();
+  const [open] = React.useState(props.open || false);
   const [currentCommands, setCurrentCommands] = React.useState<any[]>([]);
   const [commandStack, setCommandStack] = React.useState<any[][]>([]);
 
@@ -58,17 +61,18 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   // Handle arrow key navigation.
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!flatItems.length) return;
+    const totalItems = flatItems.length + (commandStack.length > 0 ? 1 : 0);
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % flatItems.length);
+      setSelectedIndex((prev) => (prev + 1) % totalItems);
     }
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev - 1 + flatItems.length) % flatItems.length);
+      setSelectedIndex((prev) => (prev - 1 + totalItems) % totalItems);
     }
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSelect(flatItems[selectedIndex]);
+      handleSelect(flatItems[selectedIndex] || { title: "Back" });
     }
   };
 
