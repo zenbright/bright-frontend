@@ -20,7 +20,6 @@ type CommandPanelProps = {
 
 export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   const {
-    open: controllerOpen,
     nestedCommands,
     displayCommands,
     flattenedCommands,
@@ -29,7 +28,7 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
     getCurrentSelection,
   } = useCommandPanelController();
 
-  const open = props.open !== undefined ? props.open : controllerOpen;
+  const [open, setOpen] = React.useState(props.open || false);
 
   // Global element highlighter hook.
   useElementHighlighter(localStorage.getItem("highlightMode") === "true");
@@ -78,7 +77,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   // Ref for the outer container.
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  // On open, reset selectedIndex and focus container so that key events are captured.
   React.useEffect(() => {
     if (open) {
       setSelectedIndex(0);
@@ -96,95 +94,27 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
     >
       <Command className="rounded-lg border shadow-md md:min-w-[450px] fixed top-44 left-auto h-fit w-fit">
         <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          {nestedCommands ? (
-            // Nested commands view.
-            nestedCommands.map((item, index) => (
-              <CommandItem
-                key={index}
-                disabled={item.disabled}
-                onSelect={() => handleSelect(item)}
-                data-selected={selectedIndex === index ? "true" : undefined}
-              >
-                {item.icon || null}
-                <span>{item.title}</span>
-                {getCurrentSelection(item.title) && (
-                  <span className="ml-auto text-xs text-muted-foreground">
-                    {getCurrentSelection(item.title)}
-                  </span>
-                )}
-              </CommandItem>
-            ))
-          ) : displayCommands ? (
-            // Flattened view with limited items.
+        <CommandList className="overflow-y-auto">
+          <CommandEmpty>{"No results found."}</CommandEmpty>
+          {displayCommands && (
             <>
               {displayCommands.map((item, index) => (
                 <CommandItem
                   key={index}
                   disabled={item.disabled}
                   onSelect={() => handleSelect(item)}
-                  data-selected={selectedIndex === index ? "true" : undefined}
-                  className={selectedIndex === index ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
+                  className={selectedIndex === index ? "bg-accent" : ""}
                 >
                   {item.icon || null}
+
                   <span>{item.title}</span>
+
                   {item.shortcut && (
                     <CommandShortcut>{modKey + item.shortcut}</CommandShortcut>
                   )}
-                  {getCurrentSelection(item.title) && (
-                    <span className="ml-auto text-xs text-muted-foreground">
-                      {getCurrentSelection(item.title)}
-                    </span>
-                  )}
                 </CommandItem>
               ))}
-              {flattenedCommands.length > 7 && (
-                <CommandItem
-                  onSelect={() => handleSelect({ title: "Show More" })}
-                  data-selected={selectedIndex === displayCommands.length ? "true" : undefined}
-                  className={selectedIndex === displayCommands.length ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
-                >
-                  <span>Show More</span>
-                </CommandItem>
-              )}
             </>
-          ) : (
-            // Grouped view.
-            (() => {
-              let flatIndex = 0;
-              return Object.entries(commandData).map(([groupName, items], groupIndex, groups) => (
-                <React.Fragment key={groupName}>
-                  <CommandGroup heading={groupName}>
-                    {(items as any[]).map((item) => {
-                      const currentIndex = flatIndex;
-                      flatIndex++;
-                      return (
-                        <CommandItem
-                          key={item.title}
-                          disabled={item.disabled}
-                          onSelect={() => handleSelect(item)}
-                          data-selected={selectedIndex === currentIndex ? "true" : undefined}
-                          className={selectedIndex === currentIndex ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
-                        >
-                          {item.icon || null}
-                          <span>{item.title}</span>
-                          {item.shortcut && (
-                            <CommandShortcut>{modKey + item.shortcut}</CommandShortcut>
-                          )}
-                          {getCurrentSelection(item.title) && (
-                            <span className="ml-auto text-xs text-muted-foreground">
-                              {getCurrentSelection(item.title)}
-                            </span>
-                          )}
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                  {groupIndex < groups.length - 1 && <CommandSeparator />}
-                </React.Fragment>
-              ));
-            })()
           )}
         </CommandList>
       </Command>

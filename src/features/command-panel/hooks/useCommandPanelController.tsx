@@ -8,6 +8,7 @@ export const useCommandPanelController = () => {
   const [open, setOpen] = React.useState(false);
   const [nestedCommands, setNestedCommands] = React.useState<any[] | null>(null);
   const [showAll, setShowAll] = React.useState(false);
+
   // Retrieve Redux and localStorage state.
   const currentTheme = useSelector((state: any) => state.currentTheme.value);
   const currentDataView = useSelector((state: any) => state.dataViewMode.current);
@@ -17,7 +18,7 @@ export const useCommandPanelController = () => {
   const location = useLocation();
   const isEnabled = !/^(\/(auth|landing)?)/.test(location.pathname);
   const isMac = typeof window !== "undefined" && /Mac/.test(navigator.platform);
-  const modKey = isMac ? "⌘" : "Ctrl";
+  const modKey = isMac ? "⌘" : "Ctrl + ";
 
   // Listen for language changes.
   React.useEffect(() => {
