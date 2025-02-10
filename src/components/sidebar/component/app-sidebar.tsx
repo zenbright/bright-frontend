@@ -26,98 +26,15 @@ import {
 } from '@components/ui/sidebar';
 import {
     ArrowRight,
-    Bell,
-    Cable,
     ChevronDown,
     ChevronUp,
-    Circle,
-    CircleUser,
-    Gem,
-    HelpCircle,
-    Home,
-    Inbox,
     Layers2,
-    Newspaper,
-    PanelsTopLeft,
     Plus,
-    Quote,
     UserCircle,
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-
-// Menu items.
-const items = [
-    {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: Home,
-    },
-    {
-        title: 'Inbox',
-        url: '/inbox',
-        icon: Inbox,
-    },
-    {
-        title: 'Projects',
-        url: '/project',
-        icon: PanelsTopLeft,
-    },
-    {
-        title: 'Notifications',
-        url: '/notification',
-        icon: Bell,
-    },
-];
-
-const itemsHelp = [
-    {
-        title: 'Help',
-        url: '#',
-        icon: HelpCircle,
-    },
-    {
-        title: 'Support',
-        url: '#',
-        icon: Cable,
-    },
-];
-
-const itemsAbout = [
-    {
-        title: 'About Us',
-        url: '#',
-        icon: Quote,
-    },
-    {
-        title: 'Subscription',
-        url: '#',
-        icon: Gem,
-    },
-    {
-        title: "What's New",
-        url: '#',
-        icon: Newspaper,
-    },
-];
-
-const listOfProjects = [
-    {
-        title: 'Bright',
-        url: '#',
-        icon: Plus,
-    },
-    {
-        title: 'Eternal',
-        url: '#',
-        icon: Plus,
-    },
-    {
-        title: 'Hive',
-        url: '#',
-        icon: Plus,
-    },
-];
+import { items, itemsAbout, itemsHelp, listOfProjects } from '../data/data';
 
 // Define the type for menu items
 interface MenuItem {
@@ -253,7 +170,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         const base = !open && !shouldCheckMousePosition ? 3 : 14;
         setSidebarWidth(
             base *
-                parseFloat(getComputedStyle(document.documentElement).fontSize)
+            parseFloat(getComputedStyle(document.documentElement).fontSize)
         );
     }, [open, shouldCheckMousePosition]);
 
@@ -313,89 +230,11 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
     };
 
     return (
-        <div className="relative">
+        <div>
             {/* Reserved (base) sidebar: occupies space in the layout */}
             <div
                 className="relative z-40 transition-all ease-in-out duration-300"
                 style={{ width: collapsedWidth }}
-                onMouseEnter={handleEnter}
-                onMouseLeave={handleLeave}
-            >
-                <Sidebar collapsible="icon">
-                    <SidebarHeader>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <SidebarMenuButton className="py-6 text-base">
-                                            <Layers2 />
-                                            Workspace
-                                            <ChevronDown className="ml-auto" />
-                                        </SidebarMenuButton>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
-                                        <DropdownMenuItem>
-                                            <span>Zen Bright</span>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <span>Tutur3u</span>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarHeader>
-                    <SidebarContent>
-                        <CollapsibleSidebarGroup
-                            label="Project Management"
-                            items={items}
-                            actionTitle="Add Project"
-                            open={open}
-                        />
-                        <CollapsibleSidebarGroup label="Help" items={itemsHelp} />
-                        <CollapsibleSidebarGroup label="About" items={itemsAbout} />
-                    </SidebarContent>
-
-                    <SidebarFooter>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <SidebarMenuButton>
-                                            <UserCircle /> Mudoker
-                                            <ChevronUp className="ml-auto" />
-                                        </SidebarMenuButton>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent
-                                        side="top"
-                                        className="w-[--radix-popper-anchor-width]"
-                                        close={!open}
-                                    >
-                                        <DropdownMenuItem>
-                                            <span>Profile</span>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <NavLink to={`/settings`}>
-                                                <span className="text-base">
-                                                    {'Settings'}
-                                                </span>
-                                            </NavLink>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <span>Sign out</span>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarFooter>
-                </Sidebar>
-            </div>
-
-            {/* Extended overlay always rendered; slides in/out via transform */}
-            <div
-                className={`absolute top-0 left-0 z-50 transition-transform ease-in-out duration-300 ${open ? 'translate-x-0' : '-translate-x-full'}`}
-                style={{ marginLeft: collapsedWidth, width: overlayWidth }}
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
             >

@@ -182,7 +182,7 @@ const UpcomingTask: React.FC<UpcommingTaskProps> = ({
                         <div className="flex gap-1">
                             <Button
                                 variant="outline"
-                                className="ml-auto h-fit border-0 px-3"
+                                className="ml-auto h-fit px-3"
                                 disabled={paging === 0}
                                 onClick={() => handlePaging('prev')}
                             >
