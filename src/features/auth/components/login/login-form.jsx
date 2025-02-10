@@ -1,23 +1,37 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { BACKEND_URL } from '@/config/constants/strings.global';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
+import { Loader2 } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
-import axios from 'axios';
-
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Button } from '../../../../components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { PASSWORD_INPUT_VALIDATOR, SIGN_IN, SIGN_IN_VALIDATOR } from '../../assets/strings';
-import OTPVerification from '../otp-verification';
-import { BACKEND_URL } from '@/config/constants/strings.global';
+import { z } from 'zod';
 
-const defaultToastOptions = { style: { border: '1px solid #ccc' }, position: 'top-right', duration: 3000 };
+import { Button } from '../../../../components/ui/button';
+import {
+    PASSWORD_INPUT_VALIDATOR,
+    SIGN_IN,
+    SIGN_IN_VALIDATOR,
+} from '../../assets/strings';
+import OTPVerification from '../otp-verification';
+
+const defaultToastOptions = {
+    style: { border: '1px solid #ccc' },
+    position: 'top-right',
+    duration: 3000,
+};
 
 const formSchema = z.object({
     email: z.string({ required_error: SIGN_IN_VALIDATOR.EMAIL }),
@@ -47,26 +61,29 @@ function Loginform() {
         e.preventDefault();
         // Check if email or password fields are empty
         if (!email.trim() || !password.trim()) {
-            toast("Error", {
+            toast('Error', {
                 ...defaultToastOptions,
-                description: "Both email and password are required",
+                description: 'Both email and password are required',
             });
             return;
         }
         setSpinning(true);
         try {
-            await axios.post(`${BACKEND_URL}/auth/signIn/email`, { email, password });
-            toast("Success", {
+            await axios.post(`${BACKEND_URL}/auth/signIn/email`, {
+                email,
+                password,
+            });
+            toast('Success', {
                 ...defaultToastOptions,
-                description: "Successfully signed in",
+                description: 'Successfully signed in',
                 action: {
-                    label: "Close",
-                    onClick: () => {}
+                    label: 'Close',
+                    onClick: () => {},
                 },
             });
         } catch (error) {
             console.error(error);
-            toast("Error", {
+            toast('Error', {
                 ...defaultToastOptions,
                 description: error.response?.data?.error || 'An error occurred',
             });
@@ -82,7 +99,7 @@ function Loginform() {
     }, [cooldown]);
 
     const startCooldown = () => setCooldown(60);
-    const onSubmit = () => { };
+    const onSubmit = () => {};
     const onError = error => console.log(error);
 
     const handleOTPVerificationComplete = () => {
@@ -99,41 +116,62 @@ function Loginform() {
         <>
             <div className="flex flex-col gap-3 space-y-2 text-center">
                 <div className="flex flex-col space-y-2 text-center">
-                    <h1 className="text-2xl font-semibold tracking-tight">{SIGN_IN.TITLE}</h1>
-                    <p className="text-sm text-muted-foreground">{SIGN_IN.DES}</p>
+                    <h1 className="text-2xl font-semibold tracking-tight">
+                        {SIGN_IN.TITLE}
+                    </h1>
+                    <p className="text-muted-foreground text-sm">
+                        {SIGN_IN.DES}
+                    </p>
                 </div>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit, onError)} className="flex flex-col gap-3">
-                        <FormField control={form.control} name="email" render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        value={email}
-                                        placeholder="Account Email"
-                                        autoComplete="email"
-                                        onChangeCapture={e => setEmail(e.currentTarget.value)}
-                                        className="border border-black/20 focus:border-transparent"
-                                        {...field}
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )} />
-                        <FormField control={form.control} name="password" render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        value={password}
-                                        autoComplete="current-password"
-                                        placeholder="Password"
-                                        onChangeCapture={e => setPassword(e.currentTarget.value)}
-                                        className="border border-black/30 focus:border-transparent"
-                                        {...field}
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )} />
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit, onError)}
+                        className="flex flex-col gap-3"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            value={email}
+                                            placeholder="Account Email"
+                                            autoComplete="email"
+                                            onChangeCapture={e =>
+                                                setEmail(e.currentTarget.value)
+                                            }
+                                            className="border border-black/20 focus:border-transparent"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            type="password"
+                                            value={password}
+                                            autoComplete="current-password"
+                                            placeholder="Password"
+                                            onChangeCapture={e =>
+                                                setPassword(
+                                                    e.currentTarget.value
+                                                )
+                                            }
+                                            className="border border-black/30 focus:border-transparent"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
                         <Button
                             type="submit"
                             className="inline-flex h-8 w-full items-center rounded border border-gray-400 bg-white px-5 py-2.5 text-center text-sm font-medium text-black hover:bg-gray-200"
@@ -152,18 +190,32 @@ function Loginform() {
                     </form>
                     <div className="flex items-center justify-between space-x-2">
                         <div className="flex items-center space-x-2">
-                            <FormField control={form.control} name="remember" render={({ field }) => (
-                                <FormItem className="flex items-center space-x-2">
-                                    <FormLabel className="text-sm font-medium">Remember me</FormLabel>
-                                    <FormItem>
-                                        <FormControl>
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                        </FormControl>
+                            <FormField
+                                control={form.control}
+                                name="remember"
+                                render={({ field }) => (
+                                    <FormItem className="flex items-center space-x-2">
+                                        <FormLabel className="text-sm font-medium">
+                                            Remember me
+                                        </FormLabel>
+                                        <FormItem>
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={
+                                                        field.onChange
+                                                    }
+                                                />
+                                            </FormControl>
+                                        </FormItem>
                                     </FormItem>
-                                </FormItem>
-                            )} />
+                                )}
+                            />
                         </div>
-                        <button type="button" className="text-primary-600 dark:text-primary-500 text-sm font-medium hover:underline">
+                        <button
+                            type="button"
+                            className="text-primary-600 dark:text-primary-500 text-sm font-medium hover:underline"
+                        >
                             Forgot password?
                         </button>
                     </div>

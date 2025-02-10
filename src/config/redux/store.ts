@@ -1,10 +1,11 @@
+import fileSlice from '@/config/slice/file-slice';
 import { dataSlice } from '@/features/dev-dock/utils/data-slice';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authSlice } from '../../features/auth/utils/authSlice';
 import { themeSlice } from '../../features/theme/utils/themeSlice';
 import { apiSlice } from '../api/apiSlice';
-import fileSlice from '@/config/slice/file-slice';
+
 export const store = configureStore({
     reducer: {
         [authSlice.reducerPath]: authSlice.reducer,

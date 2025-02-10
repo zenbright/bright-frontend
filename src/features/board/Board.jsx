@@ -89,7 +89,7 @@ export default function Board() {
         <div>
             <div
                 className={`absolute flex gap-2 ${
-                    isFullScreen ? 'right-2 top-[44%]' : 'right-2 top-[100px]'
+                    isFullScreen ? 'top-[44%] right-2' : 'top-[100px] right-2'
                 } z-30 bg-transparent`}
             >
                 <Button onClick={handleExportClick}>Export</Button>

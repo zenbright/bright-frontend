@@ -7,7 +7,10 @@ function flattenColorPalette(colors, prefix = '') {
     let result = {};
     for (const [key, value] of Object.entries(colors)) {
         if (typeof value === 'object') {
-            Object.assign(result, flattenColorPalette(value, prefix ? `${prefix}-${key}` : key));
+            Object.assign(
+                result,
+                flattenColorPalette(value, prefix ? `${prefix}-${key}` : key)
+            );
         } else {
             result[prefix ? `${prefix}-${key}` : key] = value;
         }
@@ -242,8 +245,5 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        addVariablesForColors,
-        require('tailwindcss-animate'),
-    ],
+    plugins: [addVariablesForColors, require('tailwindcss-animate')],
 };

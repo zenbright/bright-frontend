@@ -28,11 +28,13 @@ export default defineConfig({
             external: ['@faker-js/faker'], // mark faker as external
             output: {
                 globals: {
-                    '@faker-js/faker': 'faker'
+                    '@faker-js/faker': 'faker',
                 },
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
-                        const match = id.match(/node_modules\/(?:\.pnpm\/)?([^\/]+)/);
+                        const match = id.match(
+                            /node_modules\/(?:\.pnpm\/)?([^\/]+)/
+                        );
                         if (match) {
                             let pkgName = match[1];
                             // If scoped package, remove version info and fix delimiter from PNPM

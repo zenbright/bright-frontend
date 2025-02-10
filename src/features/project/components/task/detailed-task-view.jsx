@@ -106,7 +106,7 @@ export const DetailedTaskView = ({
                         <div>
                             <Button
                                 variant="ghost"
-                                className="flex gap-2 text-foreground"
+                                className="text-foreground flex gap-2"
                                 onClick={() => setIsShowTaskEditForm(true)}
                             >
                                 {'Edit'}
@@ -170,7 +170,7 @@ export const DetailedTaskView = ({
                                 ))}
 
                             <Plus
-                                className="h-6 w-6 rounded-md bg-plus_background p-1.5 text-plus_text hover:cursor-pointer hover:bg-plus_background_hover hover:text-plus_text_hover"
+                                className="bg-plus_background text-plus_text hover:bg-plus_background_hover hover:text-plus_text_hover h-6 w-6 rounded-md p-1.5 hover:cursor-pointer"
                                 onClick={() => {
                                     setIsOpenTaskTagCreationForm(true);
                                 }}

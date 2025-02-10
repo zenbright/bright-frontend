@@ -7,25 +7,28 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSeparator,
-    InputOTPSlot,
-} from '@/components/ui/input-otp';
-import {
     Form,
     FormControl,
     FormField,
     FormItem,
     FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+} from '@/components/ui/input-otp';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
 import { useSendOTPMutation, useVerifyOTPMutation } from '../utils/otpApi';
-import { toast } from 'sonner'; // Import the toast function from sonner
+
+// Import the toast function from sonner
 
 const FormSchema = z.object({
     pin: z.string().min(6, {
@@ -33,7 +36,14 @@ const FormSchema = z.object({
     }),
 });
 
-function OTPVerification({ email, onComplete, onClose, cooldown, startCooldown, hasSentOTP }) {
+function OTPVerification({
+    email,
+    onComplete,
+    onClose,
+    cooldown,
+    startCooldown,
+    hasSentOTP,
+}) {
     const [isOpen, setIsOpen] = useState(true); // State to manage dialog visibility
     const [sendOTP] = useSendOTPMutation();
     const [verifyOTP] = useVerifyOTPMutation();
@@ -70,30 +80,29 @@ function OTPVerification({ email, onComplete, onClose, cooldown, startCooldown, 
         }
     };
 
-    const onSubmit = async (data) => {
+    const onSubmit = async data => {
         try {
             const response = await verifyOTP({ email, userTypedOTP: data.pin });
             if (response.error) {
-                toast.error("Failed to verify OTP", {
-                    description: "Please try again.",
+                toast.error('Failed to verify OTP', {
+                    description: 'Please try again.',
                 });
-                return; 
+                return;
             }
-            
-            toast.success("OTP verified successfully", {
-                description: "You have successfully verified your OTP.",
+
+            toast.success('OTP verified successfully', {
+                description: 'You have successfully verified your OTP.',
             });
             setIsOpen(false);
             onComplete(); // Call the onComplete callback
-
         } catch (error) {
-            toast.error("Failed to verify OTP", {
-                description: "Please try again.",
+            toast.error('Failed to verify OTP', {
+                description: 'Please try again.',
             });
         }
     };
 
-    const handleChange = (value) => {
+    const handleChange = value => {
         form.setValue('pin', value);
         if (value.length === 6) {
             form.handleSubmit(onSubmit)();
@@ -116,14 +125,21 @@ function OTPVerification({ email, onComplete, onClose, cooldown, startCooldown, 
                 </DialogHeader>
                 <div>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col items-center justify-center gap-6">
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="flex w-full flex-col items-center justify-center gap-6"
+                        >
                             <FormField
                                 control={form.control}
                                 name="pin"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <InputOTP maxLength={6} {...field} onChange={handleChange}>
+                                            <InputOTP
+                                                maxLength={6}
+                                                {...field}
+                                                onChange={handleChange}
+                                            >
                                                 <InputOTPGroup>
                                                     <InputOTPSlot index={0} />
                                                     <InputOTPSlot index={1} />
@@ -143,13 +159,15 @@ function OTPVerification({ email, onComplete, onClose, cooldown, startCooldown, 
                             />
                         </form>
                     </Form>
-                    <div className="flex justify-center mt-4">
+                    <div className="mt-4 flex justify-center">
                         <Button
                             variant="link"
                             onClick={handleResendOTP}
                             disabled={cooldown > 0}
                         >
-                            {cooldown > 0 ? `Resend OTP in ${cooldown}s` : 'Resend OTP'}
+                            {cooldown > 0
+                                ? `Resend OTP in ${cooldown}s`
+                                : 'Resend OTP'}
                         </Button>
                     </div>
                 </div>

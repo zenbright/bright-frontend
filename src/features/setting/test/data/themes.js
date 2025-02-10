@@ -1,6 +1,3 @@
-const themes = [
-    'Light default',
-    'Dark default',
-];
+const themes = ['Light default', 'Dark default'];
 
 export default themes;

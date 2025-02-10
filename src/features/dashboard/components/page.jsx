@@ -108,7 +108,7 @@ function Dashboard() {
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Button
-                                        className="mx-2 inline-flex animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors hover:text-white"
+                                        className="animate-shimmer mx-2 inline-flex items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors hover:text-white"
                                         onClick={handleCreateNewProject}
                                         variant="outline"
                                     >
@@ -156,7 +156,7 @@ function Dashboard() {
                     </div>
                 </div>
 
-                <div className="mb-auto mt-2 flex w-full place-content-center">
+                <div className="mt-2 mb-auto flex w-full place-content-center">
                     <CardContainer />
                 </div>
 

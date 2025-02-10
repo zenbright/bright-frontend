@@ -64,12 +64,12 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
                 <a
                     ref={ref}
                     className={cn(
-                        'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover:bg-[#F4F4F5] hover:text-[#18181B]',
+                        'block space-y-1 rounded-md p-3 leading-none no-underline outline-none select-none hover:bg-[#F4F4F5] hover:text-[#18181B]',
                         className
                     )}
                     {...props}
                 >
-                    <div className="text-sm font-medium leading-none">
+                    <div className="text-sm leading-none font-medium">
                         {title}
                     </div>
                     <p className="line-clamp-2 text-sm leading-snug text-[#71717A]">
@@ -95,7 +95,7 @@ export const NavigationMenuGroup: React.FC = () => {
                             <li className="row-span-">
                                 <NavigationMenuLink asChild>
                                     <a
-                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                        className="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
                                         href="/"
                                     >
                                         <img
@@ -103,10 +103,10 @@ export const NavigationMenuGroup: React.FC = () => {
                                             alt="Bright Logo"
                                             className=""
                                         />
-                                        <div className="mb-2 mt-4 text-lg font-medium">
+                                        <div className="mt-4 mb-2 text-lg font-medium">
                                             {'Zen Bright'}
                                         </div>
-                                        <p className="text-sm leading-tight text-muted-foreground">
+                                        <p className="text-muted-foreground text-sm leading-tight">
                                             {
                                                 'A project management and coding platform with AI insights, GitHub integration, and real-time collaboration to boost productivity.'
                                             }

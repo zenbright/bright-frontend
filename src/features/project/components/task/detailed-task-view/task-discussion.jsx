@@ -91,14 +91,14 @@ const TaskActivityComponent = ({
     return (
         <ol className="relative border-gray-200 pr-3 dark:border-gray-700">
             <li className={`${isLastItem ? '' : 'mb-8'} ms-6`}>
-                <span className="absolute -start-3 z-50 flex h-6 w-6 items-center justify-center rounded-full ring-8 ring-background">
+                <span className="ring-background absolute -start-3 z-50 flex h-6 w-6 items-center justify-center rounded-full ring-8">
                     <img
                         className="rounded-full shadow-lg"
                         src="https://github.com/shadcn.png"
                         alt={isComment ? 'Thomas Lean image' : 'Bonnie image'}
                     />
                 </span>
-                <div className="bg-discussion-background flex flex-col rounded-lg border border-discussion_border p-4 shadow-xs">
+                <div className="bg-discussion-background border-discussion_border flex flex-col rounded-lg border p-4 shadow-xs">
                     <div
                         className={`items-center justify-between ${isComment ? 'mb-3' : ''} sm:flex`}
                     >
@@ -131,7 +131,7 @@ const TaskActivityComponent = ({
                             ) : (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <div className="justify-between rounded-lg border border-gray-200 bg-comment_background p-3 text-xs font-normal italic text-comment_text hover:cursor-pointer hover:bg-comment_hover">
+                                        <div className="bg-comment_background text-comment_text hover:bg-comment_hover justify-between rounded-lg border border-gray-200 p-3 text-xs font-normal italic hover:cursor-pointer">
                                             {editedComment}
                                         </div>
                                     </DropdownMenuTrigger>

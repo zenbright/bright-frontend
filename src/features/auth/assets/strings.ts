@@ -10,13 +10,13 @@ export const SIGN_UP = {
 };
 
 export const SIGN_UP_VALIDATOR = {
-  NAME_REQUIRED: 'Please fill out this field',
-  EMAIL: 'Please fill out your email',
+    NAME_REQUIRED: 'Please fill out this field',
+    EMAIL: 'Please fill out your email',
 };
 
 export const SIGN_IN_VALIDATOR = {
-  PASSWORD: 'Please fill out your password',
-  ACCOUNT: 'Please fill out your email',
+    PASSWORD: 'Please fill out your password',
+    ACCOUNT: 'Please fill out your email',
 };
 
 export const WEB_BRIEF_INTRO =

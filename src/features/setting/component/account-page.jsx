@@ -69,7 +69,7 @@ function Account() {
     return (
         <OverlayScrollbarsComponent>
             <div className="container-ns flex w-[74.4vw] flex-col overflow-auto">
-                <div className="group sticky z-30 mx-3 flex flex-col gap-4 bg-background pb-[14px] pt-8 text-2xl font-light">
+                <div className="group bg-background sticky z-30 mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                     {'Account'}
                     <Separator />
                 </div>
@@ -125,7 +125,7 @@ function Account() {
                                                     <Input
                                                         placeholder="New password"
                                                         {...field}
-                                       type="password"
+                                                        type="password"
                                                         className="h-12 w-[350px]"
                                                     />
                                                 </FormControl>

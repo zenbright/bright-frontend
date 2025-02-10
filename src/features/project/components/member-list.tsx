@@ -26,7 +26,7 @@ export const MemberList = ({
                 {members.slice(0, 3).map((member, index) => (
                     <Avatar
                         key={index}
-                        className={`w-${width} h-${height} border-2 border-white dark:border-gray-800 rounded-full`}
+                        className={`w-${width} h-${height} rounded-full border-2 border-white dark:border-gray-800`}
                     >
                         <AvatarImage src={member.imageUrl} alt={member.name} />
                         <AvatarFallback>BR</AvatarFallback>
@@ -35,7 +35,7 @@ export const MemberList = ({
 
                 {shouldRenderLink && (
                     <a
-                        className={`flex items-center justify-center w-${width} h-${height} text-xs font-medium text-white bg-gray-700 border-2 border-white dark:border-gray-800 rounded-full hover:bg-gray-600`}
+                        className={`flex items-center justify-center w-${width} h-${height} rounded-full border-2 border-white bg-gray-700 text-xs font-medium text-white hover:bg-gray-600 dark:border-gray-800`}
                         href="#"
                     >
                         +{members.length - 3}

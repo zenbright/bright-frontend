@@ -127,7 +127,9 @@ export function PlaceholdersAndVanishInput({
                 }
                 newDataRef.current = newArr;
                 // Use willReadFrequently for faster readback operations.
-                const ctx = canvasRef.current?.getContext('2d', { willReadFrequently: true });
+                const ctx = canvasRef.current?.getContext('2d', {
+                    willReadFrequently: true,
+                });
                 if (ctx) {
                     ctx.clearRect(pos, 0, 800, 800);
                     newDataRef.current.forEach(t => {
@@ -187,7 +189,7 @@ export function PlaceholdersAndVanishInput({
         >
             <canvas
                 className={cn(
-                    'pointer-events-none absolute left-2 top-[20%] origin-top-left scale-50 transform pr-20 text-base invert-0 filter sm:left-8',
+                    'pointer-events-none absolute top-[20%] left-2 origin-top-left scale-50 transform pr-20 text-base invert-0 filter sm:left-8',
                     !animating ? 'opacity-0' : 'opacity-100'
                 )}
                 ref={canvasRef}
@@ -204,14 +206,14 @@ export function PlaceholdersAndVanishInput({
                 value={value}
                 type="text"
                 className={cn(
-                    'relative z-50 h-full w-full rounded-full border-none bg-transparent pl-4 pr-20 text-sm text-white focus:outline-hidden focus:ring-0 sm:pl-10 sm:text-base',
+                    'relative z-50 h-full w-full rounded-full border-none bg-transparent pr-20 pl-4 text-sm text-white focus:ring-0 focus:outline-hidden sm:pl-10 sm:text-base',
                     animating && 'text-transparent'
                 )}
             />
             <button
                 disabled={!value}
                 type="submit"
-                className="absolute right-2 top-1/2 z-50 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-900 transition duration-200 disabled:bg-zinc-800"
+                className="absolute top-1/2 right-2 z-50 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-900 transition duration-200 disabled:bg-zinc-800"
             >
                 <motion.svg
                     xmlns="http://www.w3.org/2000/svg"

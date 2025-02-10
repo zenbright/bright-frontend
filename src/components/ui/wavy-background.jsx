@@ -35,6 +35,10 @@ import { createNoise3D } from 'simplex-noise';
 
 /* eslint-disable react/prop-types */
 
+/* eslint-disable react/prop-types */
+
+/* eslint-disable react/prop-types */
+
 const WavyBackground = ({
     children,
     className,
@@ -72,12 +76,12 @@ const WavyBackground = ({
         ctx = canvas.getContext('2d');
         w = ctx.canvas.width = window.innerWidth;
         h = ctx.canvas.height = window.innerHeight;
-        ctx.filter = `blur(${blur-sm}px)`;
+        ctx.filter = `blur(${blur - sm}px)`;
         nt = 0;
         window.onresize = function () {
             w = ctx.canvas.width = window.innerWidth;
             h = ctx.canvas.height = window.innerHeight;
-            ctx.filter = `blur(${blur-sm}px)`;
+            ctx.filter = `blur(${blur - sm}px)`;
         };
         render();
     };

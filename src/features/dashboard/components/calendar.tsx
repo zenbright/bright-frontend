@@ -74,7 +74,7 @@ export const Calendar = () => {
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="mt-4 flex h-full w-[80%] flex-col justify-start">
-                <div className="mb-3 mt-2 flex w-full justify-between">
+                <div className="mt-2 mb-3 flex w-full justify-between">
                     <h1 className="font-bold">
                         {months[today.month()]}, {today.year()}
                     </h1>

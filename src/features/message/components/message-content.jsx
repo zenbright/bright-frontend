@@ -135,7 +135,7 @@ export const MessageContent = ({
                 </OverlayScrollbarsComponent>
 
                 {/* Control Bar */}
-                <div className="mb-3 ml-4 mt-2 flex items-center justify-start">
+                <div className="mt-2 mb-3 ml-4 flex items-center justify-start">
                     <Button variant="ghost" size="icon">
                         <PlusCircle className="h-6 w-6" strokeWidth={1.5} />
                     </Button>

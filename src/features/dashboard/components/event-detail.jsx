@@ -27,14 +27,14 @@ function EventDetail({ name, endDate, description, color, startDate, value }) {
     return (
         <Dialog>
             <DialogTrigger asChild className="h-14">
-                <div className="flex h-14 cursor-pointer items-start justify-start rounded-xl border bg-background hover:bg-slate-100/95">
+                <div className="bg-background flex h-14 cursor-pointer items-start justify-start rounded-xl border hover:bg-slate-100/95">
                     <div
                         className="h-14 w-[3%] rounded-s-xl"
                         style={{ backgroundColor: color }}
                     />
-                    <div className="flex h-full flex-col justify-center p-1 pl-2 pr-4">
+                    <div className="flex h-full flex-col justify-center p-1 pr-4 pl-2">
                         <div className="flex items-center justify-center gap-1">
-                            <p className="text-md font-semibold text-foreground">
+                            <p className="text-md text-foreground font-semibold">
                                 {name}
                             </p>
                             <p style={{ color: color }} className="text-sm">

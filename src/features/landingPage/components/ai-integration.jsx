@@ -91,8 +91,8 @@ const Skeleton = () => {
                     <GeminiLogo className="h-4 w-4" />
                 </Container>
             </div>
-            <div className="absolute top-20 z-40 m-auto h-40 w-px animate-move bg-linear-to-b from-transparent via-cyan-500 to-transparent">
-                <div className="absolute -left-10 top-1/2 h-32 w-10 -translate-y-1/2">
+            <div className="animate-move absolute top-20 z-40 m-auto h-40 w-px bg-linear-to-b from-transparent via-cyan-500 to-transparent">
+                <div className="absolute top-1/2 -left-10 h-32 w-10 -translate-y-1/2">
                     <Sparkles />
                 </div>
             </div>

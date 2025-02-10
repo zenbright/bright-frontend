@@ -43,17 +43,17 @@ export const Page = () => {
                 <div style={divStyle} alt="Authentication" className="block" />
             </div>
 
-            <div className="container relative hidden min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+            <div className="relative container hidden min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
                 <Button
                     href="/login"
-                    className="absolute right-4 top-4 md:right-8 md:top-8"
+                    className="absolute top-4 right-4 md:top-8 md:right-8"
                     onClick={() => setIsUserLogin(!isUserLogin)}
                 >
                     {isUserLogin ? 'Create account' : 'Sign In'}
                 </Button>
 
                 {/* Side panel */}
-                <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+                <div className="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r">
                     <div className="absolute inset-0" style={divStyle} />
 
                     <div className="relative z-20 flex items-center text-lg font-medium hover:cursor-pointer">
@@ -102,7 +102,7 @@ export const Page = () => {
                             </div>
 
                             <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-background px-2 text-muted-foreground">
+                                <span className="bg-background text-muted-foreground px-2">
                                     Or continue with
                                 </span>
                             </div>
@@ -127,11 +127,11 @@ export const Page = () => {
                         </div>
 
                         {/* Terms and cons */}
-                        <p className="px-8 text-center text-sm text-muted-foreground">
+                        <p className="text-muted-foreground px-8 text-center text-sm">
                             {'By clicking continue, you agree to our '}
                             <a
                                 href="/terms"
-                                className="underline underline-offset-4 hover:text-primary"
+                                className="hover:text-primary underline underline-offset-4"
                             >
                                 {'Terms of Service'}
                             </a>
@@ -140,7 +140,7 @@ export const Page = () => {
 
                             <a
                                 href="/privacy"
-                                className="underline underline-offset-4 hover:text-primary"
+                                className="hover:text-primary underline underline-offset-4"
                             >
                                 {'Privacy Policy.'}
                             </a>

@@ -110,7 +110,7 @@ export default function AddMember({ open, onOpenChange }) {
                                             </TableCell>
                                             <TableCell>
                                                 <div>{member.name}</div>
-                                                <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-sm text-gray-500">
+                                                <div className="max-w-[160px] overflow-hidden text-sm text-ellipsis whitespace-nowrap text-gray-500">
                                                     {member.email}
                                                 </div>
                                             </TableCell>

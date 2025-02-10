@@ -9,7 +9,7 @@
             "@assets/*": ["./src/assets/*"],
             "@test/*": ["./src/test/*"],
             "@components/*": ["./src/components/*"],
-            "@constants/*": ["./src/config/constants/*"],
+            "@constants/*": ["./src/config/constants/*"]
         },
         "resolveJsonModule": true,
         "target": "es5",

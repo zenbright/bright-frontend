@@ -1,4 +1,4 @@
-import { apiSlice } from "@/config/api/apiSlice";
+import { apiSlice } from '@/config/api/apiSlice';
 
 export const otpApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -7,16 +7,16 @@ export const otpApiSlice = apiSlice.injectEndpoints({
                 url: 'auth/sendOTP', // API endpoint for signup
                 method: 'POST', // HTTP method
                 body, // Request body
-            })
+            }),
         }),
         verifyOTP: builder.mutation({
             query: body => ({
                 url: 'auth/verifyOTP', // API endpoint for signup
                 method: 'POST', // HTTP method
                 body, // Request body
-            })
-        })
-    })
+            }),
+        }),
+    }),
 });
 
-export const {useSendOTPMutation, useVerifyOTPMutation} = otpApiSlice
+export const { useSendOTPMutation, useVerifyOTPMutation } = otpApiSlice;

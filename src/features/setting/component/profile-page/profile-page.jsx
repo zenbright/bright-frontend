@@ -83,13 +83,13 @@ function Profile() {
 
     return (
         <div className="w-[74.4vw]">
-            <div className="mx-3 flex flex-col gap-4 pb-[14px] pt-8 text-2xl font-light">
+            <div className="mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                 {'Profile'}
                 <Separator />
             </div>
 
             <div className="flex">
-                <div className="w-9/12 px-5 pb-10 pt-3">
+                <div className="w-9/12 px-5 pt-3 pb-10">
                     <Form {...form}>
                         <form
                             ref={ref}
@@ -354,7 +354,7 @@ function Profile() {
                                 </div>
                             </div>
 
-                            <Button className="mb-3 mt-8 h-9">
+                            <Button className="mt-8 mb-3 h-9">
                                 Update Profile
                             </Button>
                         </form>
@@ -369,9 +369,9 @@ function Profile() {
                         <img
                             src={userImage}
                             alt=""
-                            className="h-50 w-50 absolute inset-0 rounded-full object-cover opacity-100 transition-opacity duration-300 group-hover:opacity-80"
+                            className="absolute inset-0 h-50 w-50 rounded-full object-cover opacity-100 transition-opacity duration-300 group-hover:opacity-80"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-50">
+                        <div className="bg-opacity-50 absolute inset-0 flex items-center justify-center bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50">
                             <span className="text-xl">{'Edit'}</span>
                         </div>
                     </button>

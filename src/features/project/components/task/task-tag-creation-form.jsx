@@ -107,7 +107,7 @@ export const TaskTagCreationForm = ({
                             </Button>
                         </div>
 
-                        <div className="col-span-4 mt-4 w-full text-sm font-semibold italic text-black/50">
+                        <div className="col-span-4 mt-4 w-full text-sm font-semibold text-black/50 italic">
                             {TASKTAG_CREATION_FORM.COLOR_CRITERIA}{' '}
                         </div>
                     </div>

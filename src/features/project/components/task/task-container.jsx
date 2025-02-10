@@ -97,7 +97,7 @@ export const TaskContainer = ({ task }) => {
                     height: dimensions.height,
                     ...style,
                 }}
-                className="mb-1 rounded-md bg-card"
+                className="bg-card mb-1 rounded-md"
             />
         );
     }
@@ -117,12 +117,12 @@ export const TaskContainer = ({ task }) => {
             <div
                 ref={setNodeRef}
                 style={style}
-                className="mb-1 rounded-lg bg-card py-2 text-foreground border"
+                className="bg-card text-foreground mb-1 rounded-lg border py-2"
                 {...attributes}
                 {...listeners}
             >
                 <div
-                    className="pl-3 pr-1"
+                    className="pr-1 pl-3"
                     onClick={() => setIsShowTaskDetailed(true)}
                 >
                     <div className="flex items-center justify-between">

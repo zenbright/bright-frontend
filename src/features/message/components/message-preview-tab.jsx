@@ -11,7 +11,7 @@ export const MessagePreviewTab = ({
 }) => {
     return (
         <div
-            className={`flex items-center px-3 py-2.5 ${isSelected ? 'bg-gray-500 bg-opacity-20' : ''}`}
+            className={`flex items-center px-3 py-2.5 ${isSelected ? 'bg-opacity-20 bg-gray-500' : ''}`}
             onClick={onClick}
         >
             {/* User Avatar */}

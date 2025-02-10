@@ -108,7 +108,7 @@ function Chart() {
                         config={chartConfig}
                     >
                         {chartKeys.length === 0 ? (
-                            <div className="flex h-full items-center justify-center text-base text-muted-foreground">
+                            <div className="text-muted-foreground flex h-full items-center justify-center text-base">
                                 {
                                     'Seems like there is no recent activity data available.'
                                 }
@@ -177,7 +177,7 @@ function Chart() {
                 <CardFooter>
                     <div className="flex w-full items-start gap-2 text-sm">
                         <div className="grid gap-2">
-                            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                            <div className="text-muted-foreground flex items-center gap-2 leading-none">
                                 January - Dec 2024
                             </div>
                         </div>

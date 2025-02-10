@@ -98,7 +98,7 @@ export const MessageView = () => {
 
                 {/* Make the message list scrollable */}
                 <div
-                    className="overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-200"
+                    className="scrollbar-thin scrollbar-thumb-gray-200 overflow-y-scroll"
                     style={{ maxHeight: 'calc(100vh - 124px)' }}
                 >
                     <MessageList />

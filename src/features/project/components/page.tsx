@@ -1,19 +1,19 @@
+import CustomAlertDialog from '@/components/general/custom-alert-dialog';
 import { Button } from '@/components/ui/button';
-import { BellDot, Settings, ShieldMinus } from 'lucide-react';
-import React from 'react';
-import { useState } from 'react';
-
+import { Separator } from '@/components/ui/separator';
+import AddMember from '@/layouts/add-member';
+import BreadCrumb from '@components/general/bread-crumb';
 import BoardTabGroup from '@components/general/tab-group';
 import { UnderDevDialog } from '@components/general/under-development-dialog';
-import { SYSTEM_ALERT } from '../../../config/constants/strings.global';
-import AddMember from '@/layouts/add-member';
 import Board from '@features/board/Board';
 import { KanbanBoard } from '@features/project/components/kanban-board';
 import { MemberList } from '@features/project/components/member-list';
-import BreadCrumb from '@components/general/bread-crumb';
-import CustomAlertDialog from '@/components/general/custom-alert-dialog';
-import { Separator } from '@/components/ui/separator';
+import { BellDot, Settings, ShieldMinus } from 'lucide-react';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import React from 'react';
+import { useState } from 'react';
+
+import { SYSTEM_ALERT } from '../../../config/constants/strings.global';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -22,7 +22,7 @@ const breadcrumbItems = [
     { label: 'Bright', isCurrent: true },
 ];
 
-export const Page = ({ projectName = "Bright" }) => {
+export const Page = ({ projectName = 'Bright' }) => {
     const [isUnderDevDialogOpen, setIsUnderDevDialogOpen] = useState(false);
     const [selectedTabIdx, setSelectedTabIdx] = useState(0);
     const [open, setOpen] = useState(false);
@@ -39,10 +39,8 @@ export const Page = ({ projectName = "Bright" }) => {
                 <BreadCrumb items={breadcrumbItems} />
 
                 {/* Title + Util Buttons */}
-                <div className="flex items-center mt-5 justify-between">
-                    <h1 className="text-4xl font-bold">
-                        {projectName}
-                    </h1>
+                <div className="mt-5 flex items-center justify-between">
+                    <h1 className="text-4xl font-bold">{projectName}</h1>
 
                     <div className="flex gap-4">
                         <Button
@@ -63,7 +61,7 @@ export const Page = ({ projectName = "Bright" }) => {
             </div>
 
             {/* Creation Date + Member List + Privacy */}
-            <div className="mb-1 flex h-10 items-center gap-4 mt-5">
+            <div className="mt-5 mb-1 flex h-10 items-center gap-4">
                 <div className="flex items-center pl-4">
                     <BoardTabGroup
                         selected={selectedTabIdx}

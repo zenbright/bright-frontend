@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const ConfirmPage = () => {
     const navigate = useNavigate();
@@ -13,7 +13,9 @@ export const ConfirmPage = () => {
 
     const confirmToken = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/auth/confirm?token_hash=${tokenHash}&type=${type}&next=${next || '/'}`);
+            const res = await axios.get(
+                `http://localhost:3000/auth/confirm?token_hash=${tokenHash}&type=${type}&next=${next || '/'}`
+            );
             const data = res.data;
 
             if (data.redirectUrl) {
@@ -34,12 +36,16 @@ export const ConfirmPage = () => {
     }, [tokenHash, type, next, navigate]);
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <div className="mx-auto max-w-sm space-y-4 rounded-xl bg-white p-6 shadow-md">
                 <div className="flex items-center space-x-4">
-                    <div className="text-xl font-medium text-black">Redirecting...</div>
+                    <div className="text-xl font-medium text-black">
+                        Redirecting...
+                    </div>
                 </div>
-                <p className="text-gray-500">Please wait while we redirect you to the appropriate page.</p>
+                <p className="text-gray-500">
+                    Please wait while we redirect you to the appropriate page.
+                </p>
             </div>
         </div>
     );

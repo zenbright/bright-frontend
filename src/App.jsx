@@ -21,12 +21,12 @@ import {
     useLocation,
 } from 'react-router-dom';
 
+import { ConfirmPage } from './features/auth/components/confirm-page';
 import Notfoundpage from './layouts/404-page';
 import { AppLayout } from './layouts/app-layout';
 import { LandingAuthLayout } from './layouts/landing-auth-layout';
 import { SettingLayout } from './layouts/setting-layout';
 import { Welcome } from './test/Welcome';
-import { ConfirmPage } from './features/auth/components/confirm-page';
 // test
 import { UsersList } from './test/users/userList';
 

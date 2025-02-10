@@ -1,32 +1,34 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface File {
-  name: string;
-  // Add other file properties if needed
+    name: string;
+    // Add other file properties if needed
 }
 
 interface FileState {
-  queue: File[];
+    queue: File[];
 }
 
 const initialState: FileState = {
-  queue: [],
+    queue: [],
 };
 
 const fileSlice = createSlice({
-  name: 'file',
-  initialState,
-  reducers: {
-    addFile: (state, action: PayloadAction<File>) => {
-      state.queue.push(action.payload);
+    name: 'file',
+    initialState,
+    reducers: {
+        addFile: (state, action: PayloadAction<File>) => {
+            state.queue.push(action.payload);
+        },
+        removeFile: (state, action: PayloadAction<string>) => {
+            state.queue = state.queue.filter(
+                file => file.name !== action.payload
+            );
+        },
+        clearFiles: state => {
+            state.queue = [];
+        },
     },
-    removeFile: (state, action: PayloadAction<string>) => {
-      state.queue = state.queue.filter(file => file.name !== action.payload);
-    },
-    clearFiles: (state) => {
-      state.queue = [];
-    },
-  },
 });
 
 export const { addFile, removeFile, clearFiles } = fileSlice.actions;

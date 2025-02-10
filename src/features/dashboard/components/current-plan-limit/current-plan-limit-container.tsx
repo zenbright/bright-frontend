@@ -36,7 +36,7 @@ const LimitItem: React.FC<LimitItemProps> = ({
     <div className="flex h-full w-72 flex-col space-y-1.5">
         <Button variant="outline" className="justify-start rounded-lg py-6">
             <Icon className="h-5 w-5" />
-            <div className="ml-3 mr-4 truncate text-ellipsis text-sm font-semibold dark:text-white">
+            <div className="mr-4 ml-3 truncate text-sm font-semibold text-ellipsis dark:text-white">
                 {label}
             </div>
             <div className="ml-auto flex flex-row items-center">

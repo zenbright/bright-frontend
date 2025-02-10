@@ -35,20 +35,31 @@ const Theme: React.FC<ThemeProps> = ({ name, image }) => {
     return (
         <Button
             variant="outline"
-            className={`flex h-fit w-full cursor-pointer flex-col items-center rounded-md py-5
-            ${currentTheme === normalizeThemeName(name) ? 'border border-primary' : ''}
-            `}
+            className={`flex h-fit w-full cursor-pointer flex-col items-center rounded-md py-5 ${currentTheme === normalizeThemeName(name) ? 'border-primary border' : ''} `}
             onClick={handleThemeButton}
             disabled={isDisabled}
         >
             {name === 'Dark default' ? (
-                <Moon size={36} className={`mb-2 ${getOpacityClass('dark-default', currentTheme)}`} />
+                <Moon
+                    size={36}
+                    className={`mb-2 ${getOpacityClass('dark-default', currentTheme)}`}
+                />
             ) : (
-                <Sun size={36} className={`mb-2 ${getOpacityClass('light-default', currentTheme)}`} />
+                <Sun
+                    size={36}
+                    className={`mb-2 ${getOpacityClass('light-default', currentTheme)}`}
+                />
             )}
 
             <div className="flex flex-row gap-2 p-2">
-                <p className={getOpacityClass(normalizeThemeName(name), currentTheme)}>{name}</p>
+                <p
+                    className={getOpacityClass(
+                        normalizeThemeName(name),
+                        currentTheme
+                    )}
+                >
+                    {name}
+                </p>
             </div>
         </Button>
     );

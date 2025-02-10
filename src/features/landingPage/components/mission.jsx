@@ -26,11 +26,11 @@ export const MissionGroup = () => {
                             </svg>
                         </div>
 
-                        <h1 className="relative z-30 mb-4 font-monument text-xl font-bold text-neutral-200">
+                        <h1 className="font-monument relative z-30 mb-4 text-xl font-bold text-neutral-200">
                             {title}
                         </h1>
 
-                        <p className="relative z-30 mb-4 text-base font-normal italic text-neutral-100">
+                        <p className="relative z-30 mb-4 text-base font-normal text-neutral-100 italic">
                             {des}
                         </p>
 

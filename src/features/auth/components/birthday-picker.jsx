@@ -18,7 +18,7 @@ export const BirthdayPicker = ({ date, setDate }) => {
                 <Button
                     variant={'outline'}
                     className={cn(
-                        'w-full justify-start border border-auth_form_border border-gray-400 text-left font-normal',
+                        'border-auth_form_border w-full justify-start border border-gray-400 text-left font-normal',
                         !date && 'text-muted-foreground'
                     )}
                 >

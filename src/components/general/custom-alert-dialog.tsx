@@ -1,15 +1,15 @@
-import React, { FC, ReactNode } from "react";
 import {
     AlertDialog,
-    AlertDialogTrigger,
+    AlertDialogAction,
+    AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogTitle,
     AlertDialogDescription,
     AlertDialogFooter,
-    AlertDialogCancel,
-    AlertDialogAction,
-} from "@components/ui/alert-dialog";
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@components/ui/alert-dialog';
+import React, { FC, ReactNode } from 'react';
 
 interface PrivateAlertDialogProps {
     title: string;
@@ -24,15 +24,15 @@ const CustomAlertDialog: FC<PrivateAlertDialogProps> = ({
     title,
     description,
     onAction,
-    actionLabel = "Continue",
-    cancelLabel = "Cancel",
+    actionLabel = 'Continue',
+    cancelLabel = 'Cancel',
     trigger,
 }) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 {trigger || (
-                    <button className="h-8 text-rose-400 border border-gray-300 rounded">
+                    <button className="h-8 rounded border border-gray-300 text-rose-400">
                         Default Trigger
                     </button>
                 )}
@@ -58,4 +58,3 @@ const CustomAlertDialog: FC<PrivateAlertDialogProps> = ({
 };
 
 export default CustomAlertDialog;
-

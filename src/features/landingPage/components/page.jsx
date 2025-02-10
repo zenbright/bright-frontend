@@ -109,8 +109,8 @@ export const Page = () => {
                         </div>
                     </div>
 
-                    <div className="mt-20 flex flex-col items-center font-monument text-neutral-200">
-                        <div className="mb-5 font-monument">
+                    <div className="font-monument mt-20 flex flex-col items-center text-neutral-200">
+                        <div className="font-monument mb-5">
                             {'Enter your email to join our innovative platform'}
                         </div>
 
@@ -153,7 +153,7 @@ export const Page = () => {
             {/* Feature Section */}
             <div className="bg-black">
                 <div className="mt-5 flex flex-col items-center gap-5">
-                    <div className="mb-5 font-monument text-3xl font-bold text-neutral-200">
+                    <div className="font-monument mb-5 text-3xl font-bold text-neutral-200">
                         {'Why Bright?'}
                     </div>
 
@@ -161,11 +161,11 @@ export const Page = () => {
                         <MissionGroup />
                     </div>
 
-                    <div className="mb-20 mt-32 font-monument text-3xl font-bold text-neutral-200">
+                    <div className="font-monument mt-32 mb-20 text-3xl font-bold text-neutral-200">
                         {"What's else?"}
                     </div>
 
-                    <div className="grid w-full grid-cols-2 items-center px-32 font-monument text-2xl text-neutral-200">
+                    <div className="font-monument grid w-full grid-cols-2 items-center px-32 text-2xl text-neutral-200">
                         <div className="font-monument text-2xl text-neutral-200">
                             {'Project Management Simplified'}
 
@@ -182,7 +182,7 @@ export const Page = () => {
                                     transform:
                                         'rotateX(15deg) translateZ(80px)',
                                 }}
-                                className="mx-auto h-1/2 w-3/4 rounded-3xl bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-neutral-900 md:h-3/4"
+                                className="mx-auto h-1/2 w-3/4 rounded-3xl bg-neutral-100 p-1 md:h-3/4 dark:border-neutral-800 dark:bg-neutral-900"
                             >
                                 <Compare
                                     firstImage={PMbad}
@@ -197,7 +197,7 @@ export const Page = () => {
                         </div>
                     </div>
 
-                    <div className="mt-32 grid w-full grid-cols-2 items-center px-32 font-monument text-2xl text-neutral-200">
+                    <div className="font-monument mt-32 grid w-full grid-cols-2 items-center px-32 text-2xl text-neutral-200">
                         <AICard />
                         <div className="font-monument text-2xl text-neutral-200">
                             {'AI-Powered Insights'}
@@ -210,7 +210,7 @@ export const Page = () => {
                         </div>
                     </div>
 
-                    <div className="mt-32 flex w-full flex-col items-center font-monument text-2xl text-neutral-200">
+                    <div className="font-monument mt-32 flex w-full flex-col items-center text-2xl text-neutral-200">
                         <LampContainer>
                             <motion.h1
                                 initial={{ opacity: 0.5, y: 100 }}
@@ -220,7 +220,7 @@ export const Page = () => {
                                     duration: 0.8,
                                     ease: 'easeInOut',
                                 }}
-                                className="mt-8 bg-linear-to-br from-slate-300 to-slate-500 bg-clip-text text-center font-monument text-4xl font-medium tracking-tight text-transparent md:text-4xl"
+                                className="font-monument mt-8 bg-linear-to-br from-slate-300 to-slate-500 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-4xl"
                             >
                                 Your data is safe <br /> with us.
                                 <div className="mt-10 flex flex-col items-center gap-6 text-xl">
@@ -253,13 +253,13 @@ export const Page = () => {
                         </LampContainer>
                     </div>
 
-                    <div className="-mt-36 flex w-full flex-col items-center px-32 font-monument text-2xl text-neutral-200">
-                        <div className="flex flex-col items-center gap-6 text-center font-monument text-4xl text-neutral-200">
+                    <div className="font-monument -mt-36 flex w-full flex-col items-center px-32 text-2xl text-neutral-200">
+                        <div className="font-monument flex flex-col items-center gap-6 text-center text-4xl text-neutral-200">
                             <div className="font-monument">
                                 {'Join the waitlist'}
                             </div>
 
-                            <div className="text-xl font-semibold italic text-neutral-300">
+                            <div className="text-xl font-semibold text-neutral-300 italic">
                                 {
                                     'Be the first to know when we launch! Sign up now and secure your spot for exclusive early access and updates.'
                                 }
@@ -365,7 +365,7 @@ export const Page = () => {
                 </div>
             </div>
 
-            <div className="w-full pb-8 pr-12 pt-2 text-end font-semibold text-neutral-400">
+            <div className="w-full pt-2 pr-12 pb-8 text-end font-semibold text-neutral-400">
                 Zen Bright, Open Source. All rights reserved.{' '}
             </div>
         </div>

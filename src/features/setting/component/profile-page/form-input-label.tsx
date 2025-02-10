@@ -1,7 +1,19 @@
-import React from "react";
-import { Control, FieldValues, FieldPath, FieldErrors, ControllerRenderProps } from "react-hook-form";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import React from 'react';
+import {
+    Control,
+    ControllerRenderProps,
+    FieldErrors,
+    FieldPath,
+    FieldValues,
+} from 'react-hook-form';
 
 interface FormInputLabelProps<TFieldValues extends FieldValues> {
     control: Control<TFieldValues>;
@@ -22,9 +34,18 @@ const FormInputLabel = <TFieldValues extends FieldValues>({
         <FormField
             control={control}
             name={name}
-            render={({ field }: { field: ControllerRenderProps<TFieldValues, FieldPath<TFieldValues>> }) => (
+            render={({
+                field,
+            }: {
+                field: ControllerRenderProps<
+                    TFieldValues,
+                    FieldPath<TFieldValues>
+                >;
+            }) => (
                 <FormItem className={`flex flex-col ${className}`}>
-                    <FormLabel className="text-md font-semibold">{label}</FormLabel>
+                    <FormLabel className="text-md font-semibold">
+                        {label}
+                    </FormLabel>
                     <FormControl>
                         <Input
                             placeholder={placeholder || label}

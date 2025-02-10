@@ -44,7 +44,7 @@ export const MessageBubble = ({ content = 'hello', isUserMessage = false }) => {
             {isRightClicked && (
                 <div className="position-relative">
                     <div
-                        className="w-200 absolute box-border rounded-lg bg-gray-800"
+                        className="absolute box-border w-200 rounded-lg bg-gray-800"
                         style={{ top: `${points.y}px`, left: `${points.x}px` }}
                         onMouseLeave={() => setRightClicked(false)}
                     >
