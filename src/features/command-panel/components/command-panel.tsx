@@ -38,8 +38,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
   const flatItems = nestedCommands
     ? nestedCommands
     : displayCommands
-    ? displayCommands
-    : Object.values(commandData).flat();
+      ? displayCommands
+      : Object.values(commandData).flat();
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
@@ -93,9 +93,8 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
       ref={containerRef}
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      style={{ outline: "none", overflow: "hidden" }}
     >
-      <Command className="rounded-lg border shadow-md md:min-w-[450px]">
+      <Command className="rounded-lg border shadow-md md:min-w-[450px] fixed top-44 left-auto h-fit w-fit">
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -107,7 +106,6 @@ export const CommandPanel: React.FC<CommandPanelProps> = (props) => {
                 disabled={item.disabled}
                 onSelect={() => handleSelect(item)}
                 data-selected={selectedIndex === index ? "true" : undefined}
-                className={selectedIndex === index ? "bg-accent text-accent-foreground ring-2 !ring-white" : ""}
               >
                 {item.icon || null}
                 <span>{item.title}</span>
