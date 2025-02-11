@@ -1,9 +1,8 @@
 import { XCircle } from 'lucide-react';
-import PropTypes from 'prop-types';
-
+import React from 'react';
 import ImageCropper from './image_cropper';
 
-const Modal = ({ closeModal }) => {
+const UpdateUserAvatarModal = ({ closeModal }: { closeModal: () => void }) => {
     return (
         <div
             className="relative z-50"
@@ -33,8 +32,4 @@ const Modal = ({ closeModal }) => {
     );
 };
 
-Modal.propTypes = {
-    closeModal: PropTypes.func,
-};
-
-export default Modal;
+export default UpdateUserAvatarModal;

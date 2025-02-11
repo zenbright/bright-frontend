@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop';
+import React, { useState } from 'react';
+import ReactCrop, { centerCrop, makeAspectCrop, PercentCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const ASPECT_RATIO = 1;
@@ -7,10 +7,10 @@ const MIN_DIMENSION = 150;
 
 const ImageCropper = () => {
     const [imageSrc, setImageSrc] = useState('');
-    const [crop, setCrop] = useState();
+    const [crop, setCrop] = useState<PercentCrop | undefined>(undefined);
     const [error, setError] = useState('');
 
-    const onSelectFile = e => {
+    const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -19,9 +19,10 @@ const ImageCropper = () => {
             const imageElement = new Image();
             const imageUrl = reader.result?.toString() || '';
             imageElement.src = imageUrl;
-            imageElement.addEventListener('load', e => {
+            imageElement.addEventListener('load', (e: Event) => {
                 if (error) setError('');
-                const { naturalWidth, naturalHeight } = e.currentTarget;
+                const target = e.currentTarget as HTMLImageElement;
+                const { naturalWidth, naturalHeight } = target;
                 if (
                     naturalHeight < MIN_DIMENSION ||
                     naturalWidth < MIN_DIMENSION
@@ -34,8 +35,7 @@ const ImageCropper = () => {
         });
         reader.readAsDataURL(file);
     };
-
-    const onImageLoad = e => {
+    const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
         const { width, height } = e.currentTarget;
         const cropWidthPercent = (MIN_DIMENSION / width) * 100;
         const crop = makeAspectCrop(
@@ -64,10 +64,10 @@ const ImageCropper = () => {
             </label>
             {error && <p className="text-md text-rose-600">{error}</p>}
             {imageSrc && (
-                <div className="flex flex-col items-center">
+                <div>
                     <ReactCrop
                         crop={crop}
-                        onChange={(pixelCrop, percentCrop) =>
+                        onChange={(_, percentCrop) =>
                             setCrop(percentCrop)
                         }
                         circularCrop

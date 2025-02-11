@@ -1,11 +1,10 @@
 import { Separator } from '@/components/ui/separator';
 
-import catImage from '../asset/cat.jpg';
-import withScrollbarTheme from '../hoc/scroll-bar';
-import themes from '../test/data/themes';
-import Theme from './app-theme';
+import withScrollbarTheme from '../../hoc/scroll-bar';
+import { AVAILABLE_THEMES } from '@features/setting/data/themes';
+import ThemeSelectCard from './theme-select-card';
 
-function Appearance() {
+function AppearanceSettingPage() {
     return (
         <div className="container-ns flex w-[74.4vw] flex-col overflow-auto">
             <div className="group bg-background sticky mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
@@ -16,12 +15,12 @@ function Appearance() {
             <div className="flex flex-col">
                 <div className="flex items-center justify-center">
                     <form className="grid w-full grid-cols-3 gap-4">
-                        {themes.map((theme, index) => (
+                        {AVAILABLE_THEMES.map((theme, index) => (
                             <label
                                 key={index}
                                 className="cursor-pointer rounded-md"
                             >
-                                <Theme name={theme} image={catImage}></Theme>
+                                <ThemeSelectCard themeName={theme} />
                             </label>
                         ))}
                     </form>
@@ -31,4 +30,4 @@ function Appearance() {
     );
 }
 
-export default withScrollbarTheme(Appearance);
+export default withScrollbarTheme(AppearanceSettingPage);

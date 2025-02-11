@@ -25,7 +25,7 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { ACCOUNT } from '../test/data/strings';
+import { ACCOUNT } from '@/features/setting/data/strings';
 
 const formShcema = z
     .object({
@@ -48,7 +48,7 @@ const formShcema = z
         path: ['re_confirm_password'],
     });
 
-function Account() {
+function AccountSettingPage() {
     const form = useForm({
         resolver: zodResolver(formShcema),
         defaultValues: {
@@ -68,15 +68,15 @@ function Account() {
 
     return (
         <OverlayScrollbarsComponent>
-            <div className="container-ns flex w-[74.4vw] flex-col overflow-auto">
+            <div className="container-ns flex flex-col overflow-auto">
                 <div className="group bg-background sticky z-30 mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                     {'Account'}
                     <Separator />
                 </div>
 
                 <div className="flex flex-col">
-                    <div className="m-3 flex flex-col gap-4 p-2">
-                        <p className="font-semibold">{'Change Password'}</p>
+                    <div className="m-3 flex flex-col gap-4 p-2 font-medium text-lg">
+                        {'Change Password'}
                         <Separator />
                     </div>
 
@@ -99,7 +99,6 @@ function Account() {
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                        autoComplete="current-password"
                                                         placeholder="Old password"
                                                         {...field}
                                                         type="password"
@@ -164,17 +163,15 @@ function Account() {
                         </Form>
                     </div>
 
-                    <div className="m-3 mt-12 border-b-[1px] p-2">
-                        <p className="font-bold text-rose-400">
-                            {'Delete Account'}
-                        </p>
+                    <div className="m-3 text-lg font-medium mt-12 border-b-[1px] p-2">
+                        {'Delete Account'}
                     </div>
 
                     <div className="mx-3 space-y-4 p-2">
                         <p>{ACCOUNT.DELETE_DESCRIPTION}</p>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
-                                <Button className="border bg-red-500 hover:bg-rose-400 hover:text-white">
+                                <Button variant="destructive">
                                     {'Delete your account'}
                                 </Button>
                             </AlertDialogTrigger>
@@ -204,4 +201,4 @@ function Account() {
     );
 }
 
-export default Account;
+export default AccountSettingPage;

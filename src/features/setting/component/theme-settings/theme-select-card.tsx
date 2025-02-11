@@ -1,23 +1,23 @@
 import { Button } from '@/components/ui/button';
 import { Moon, Sun } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setTheme } from '../../theme/utils/themeSlice';
+import { setTheme } from '@/features/theme/utils/themeSlice';
 
 interface ThemeProps {
-    name: string;
+    themeName: string;
     image?: string;
 }
 
-const Theme: React.FC<ThemeProps> = ({ name, image }) => {
+const ThemeSelectCard: React.FC<ThemeProps> = ({ themeName, image }) => {
     const dispatch = useDispatch();
     const currentTheme = useSelector((state: any) => state.currentTheme.value);
+    const isDisabled = themeName !== 'Light default' && themeName !== 'Dark default';
 
-    const isDisabled = name !== 'Light default' && name !== 'Dark default';
-
-    const normalizeThemeName = (name: string) => {
-        return name.toLowerCase().replace(/ /g, '-');
+    const normalizeThemeName = (themeName: string) => {
+        console.log('themeName', themeName);
+        return themeName.toLowerCase().replace(/ /g, '-');
     };
 
     const getOpacityClass = (themeName: string, currentTheme: string) => {
@@ -27,7 +27,7 @@ const Theme: React.FC<ThemeProps> = ({ name, image }) => {
     const handleThemeButton = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         if (!isDisabled) {
-            const theme = normalizeThemeName(name);
+            const theme = normalizeThemeName(themeName);
             dispatch(setTheme(theme));
         }
     };
@@ -35,11 +35,11 @@ const Theme: React.FC<ThemeProps> = ({ name, image }) => {
     return (
         <Button
             variant="outline"
-            className={`flex h-fit w-full cursor-pointer flex-col items-center rounded-md py-5 ${currentTheme === normalizeThemeName(name) ? 'border-primary border' : ''} `}
+            className={`flex h-fit w-full cursor-pointer flex-col items-center rounded-md py-5 ${currentTheme === normalizeThemeName(themeName) ? 'border-primary border' : ''} `}
             onClick={handleThemeButton}
             disabled={isDisabled}
         >
-            {name === 'Dark default' ? (
+            {themeName === 'Dark default' ? (
                 <Moon
                     size={36}
                     className={`mb-2 ${getOpacityClass('dark-default', currentTheme)}`}
@@ -54,15 +54,15 @@ const Theme: React.FC<ThemeProps> = ({ name, image }) => {
             <div className="flex flex-row gap-2 p-2">
                 <p
                     className={getOpacityClass(
-                        normalizeThemeName(name),
+                        normalizeThemeName(themeName),
                         currentTheme
                     )}
                 >
-                    {name}
+                    {themeName}
                 </p>
             </div>
         </Button>
     );
 };
 
-export default Theme;
+export default ThemeSelectCard;

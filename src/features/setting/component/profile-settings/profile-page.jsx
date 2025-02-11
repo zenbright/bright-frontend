@@ -28,14 +28,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { LinkIcon } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import userImage from '../../asset/cat.jpg';
 import withScrollbarTheme from '../../hoc/scroll-bar';
-import { PROFILE } from '../../test/data/strings';
-import Modal from '../modal';
+import { PROFILE } from '../../data/strings';
+import UpdateUserAvatarModal from './update-user-avatar-modal';
 import FormInputLabel from './form-input-label';
 
 const formShcema = z.object({
@@ -61,7 +61,7 @@ const formShcema = z.object({
     dob: z.date(),
 });
 
-function Profile() {
+function ProfileSettingPage() {
     const [modalOpen, setModalOpen] = useState(false);
 
     const ref = useRef(null);
@@ -82,7 +82,7 @@ function Profile() {
     };
 
     return (
-        <div className="w-[74.4vw]">
+        <div className='w-full'>
             <div className="mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                 {'Profile'}
                 <Separator />
@@ -304,7 +304,7 @@ function Profile() {
                                                                 className={cn(
                                                                     'h-12 w-[240px] pl-3 text-left font-normal',
                                                                     !field.value &&
-                                                                        'text-muted-foreground'
+                                                                    'text-muted-foreground'
                                                                 )}
                                                             >
                                                                 {field.value ? (
@@ -338,11 +338,11 @@ function Profile() {
                                                             }
                                                             disabled={date =>
                                                                 date >
-                                                                    new Date() ||
+                                                                new Date() ||
                                                                 date <
-                                                                    new Date(
-                                                                        '1900-01-01'
-                                                                    )
+                                                                new Date(
+                                                                    '1900-01-01'
+                                                                )
                                                             }
                                                             initialFocus
                                                         />
@@ -377,10 +377,10 @@ function Profile() {
                     </button>
                 </div>
 
-                {modalOpen && <Modal closeModal={() => setModalOpen(false)} />}
+                {modalOpen && <UpdateUserAvatarModal closeModal={() => setModalOpen(false)} />}
             </div>
         </div>
     );
 }
 
-export default withScrollbarTheme(Profile);
+export default withScrollbarTheme(ProfileSettingPage);
