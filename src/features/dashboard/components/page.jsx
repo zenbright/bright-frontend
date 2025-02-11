@@ -33,6 +33,8 @@ import { CurrentPlanLimitContainer } from './current-plan-limit/current-plan-lim
 import { NotificationPopover } from './noti-popover/notification-popover.tsx';
 import Chart from './project-stats/chart.jsx';
 import TaskPage from './task-list/task-page.tsx';
+import { NavLink } from 'react-router-dom';
+import { NavigatableButton } from '@/components/ui/navigatable-button';
 
 function Dashboard() {
     const dataViewMode = useSelector(state => state.dataViewMode.current);
@@ -149,9 +151,9 @@ function Dashboard() {
                                 </DialogContent>
                             </Dialog>
 
-                            <Button variant="outline">
+                            <NavigatableButton to="/settings" variant="outline">
                                 <Settings size={16} />
-                            </Button>
+                            </NavigatableButton>
                         </div>
                     </div>
                 </div>

@@ -56,9 +56,9 @@ const MemoizedChart: React.FC<MemoizedChartProps> = React.memo(
         const disparity = useMemo(() => {
             return data.length > 0
                 ? getValueDisparityBetweenTwoTimestamps(
-                      data[0].data,
-                      data[data.length - 1].data
-                  )
+                    data[0].data,
+                    data[data.length - 1].data
+                )
                 : '0'; // Default to "0" if no data
         }, [data]);
 
@@ -174,7 +174,7 @@ const UpcomingTask: React.FC<UpcommingTaskProps> = ({
     return (
         <Card className="flex flex-1 flex-col items-start">
             <CardHeader className="py-4">
-                <CardTitle className="flex items-center text-lg">
+                <CardTitle className="flex items-center text-lg gap-3">
                     <span>{"Today's Task"}</span>
                     <div className="ml-auto flex flex-col gap-2">
                         <div className="flex gap-1">
@@ -212,7 +212,12 @@ const UpcomingTask: React.FC<UpcommingTaskProps> = ({
                                     />
                                 ))}
                                 <span className="mt-2 flex w-full justify-between pb-2 text-xs dark:text-neutral-400">
-                                    <span>{'Auto-refresh in 5 minutes'}</span>
+                                    <span>{'Auto-refresh in'}
+                                        <Button variant="link" className="p-0 text-xs cursor-pointer h-fit w-fit">
+                                            {'5 minutes'}
+                                        </Button>
+                                    </span>
+
                                     Page {paging + 1} of 3
                                 </span>
                             </>
