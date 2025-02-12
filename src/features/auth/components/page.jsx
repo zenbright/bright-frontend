@@ -2,6 +2,7 @@ import logo from '@/assets/images/app-logo/logomini-light.svg';
 import { Button } from '@/components/ui/button';
 import { Github, Mail } from 'lucide-react';
 import { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { WEBSITE_NAME } from '../../../config/constants/strings.global';
@@ -9,7 +10,6 @@ import AuthBackground from '../assets/bgimg.png';
 import { QUOTE, WEB_BRIEF_INTRO } from '../assets/strings';
 import Loginform from './login/login-form';
 import Signupform from './signup/signup-form';
-import React from 'react';
 
 export const Page = () => {
     const [isUserLogin, setIsUserLogin] = useState(true);

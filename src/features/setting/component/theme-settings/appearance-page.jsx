@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator';
+import { AVAILABLE_THEMES } from '@features/setting/data/themes';
 
 import withScrollbarTheme from '../../hoc/scroll-bar';
-import { AVAILABLE_THEMES } from '@features/setting/data/themes';
 import ThemeSelectCard from './theme-select-card';
 
 function AppearanceSettingPage() {

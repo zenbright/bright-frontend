@@ -33,10 +33,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import userImage from '../../asset/cat.jpg';
-import withScrollbarTheme from '../../hoc/scroll-bar';
 import { PROFILE } from '../../data/strings';
-import UpdateUserAvatarModal from './update-user-avatar-modal';
+import withScrollbarTheme from '../../hoc/scroll-bar';
 import FormInputLabel from './form-input-label';
+import UpdateUserAvatarModal from './update-user-avatar-modal';
 
 const formShcema = z.object({
     username: z
@@ -82,7 +82,7 @@ function ProfileSettingPage() {
     };
 
     return (
-        <div className='w-full'>
+        <div className="w-full">
             <div className="mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                 {'Profile'}
                 <Separator />
@@ -304,7 +304,7 @@ function ProfileSettingPage() {
                                                                 className={cn(
                                                                     'h-12 w-[240px] pl-3 text-left font-normal',
                                                                     !field.value &&
-                                                                    'text-muted-foreground'
+                                                                        'text-muted-foreground'
                                                                 )}
                                                             >
                                                                 {field.value ? (
@@ -338,11 +338,11 @@ function ProfileSettingPage() {
                                                             }
                                                             disabled={date =>
                                                                 date >
-                                                                new Date() ||
+                                                                    new Date() ||
                                                                 date <
-                                                                new Date(
-                                                                    '1900-01-01'
-                                                                )
+                                                                    new Date(
+                                                                        '1900-01-01'
+                                                                    )
                                                             }
                                                             initialFocus
                                                         />
@@ -377,7 +377,11 @@ function ProfileSettingPage() {
                     </button>
                 </div>
 
-                {modalOpen && <UpdateUserAvatarModal closeModal={() => setModalOpen(false)} />}
+                {modalOpen && (
+                    <UpdateUserAvatarModal
+                        closeModal={() => setModalOpen(false)}
+                    />
+                )}
             </div>
         </div>
     );

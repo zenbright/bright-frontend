@@ -20,12 +20,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { ACCOUNT } from '@/features/setting/data/strings';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import { ACCOUNT } from '@/features/setting/data/strings';
 
 const formShcema = z
     .object({
@@ -75,7 +74,7 @@ function AccountSettingPage() {
                 </div>
 
                 <div className="flex flex-col">
-                    <div className="m-3 flex flex-col gap-4 p-2 font-medium text-lg">
+                    <div className="m-3 flex flex-col gap-4 p-2 text-lg font-medium">
                         {'Change Password'}
                         <Separator />
                     </div>
@@ -163,7 +162,7 @@ function AccountSettingPage() {
                         </Form>
                     </div>
 
-                    <div className="m-3 text-lg font-medium mt-12 border-b-[1px] p-2">
+                    <div className="m-3 mt-12 border-b-[1px] p-2 text-lg font-medium">
                         {'Delete Account'}
                     </div>
 

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import ReactCrop, { centerCrop, makeAspectCrop, PercentCrop } from 'react-image-crop';
+import ReactCrop, {
+    PercentCrop,
+    centerCrop,
+    makeAspectCrop,
+} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const ASPECT_RATIO = 1;
@@ -67,9 +71,7 @@ const ImageCropper = () => {
                 <div>
                     <ReactCrop
                         crop={crop}
-                        onChange={(_, percentCrop) =>
-                            setCrop(percentCrop)
-                        }
+                        onChange={(_, percentCrop) => setCrop(percentCrop)}
                         circularCrop
                         keepSelection
                         aspect={1}

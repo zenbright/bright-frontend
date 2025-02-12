@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
+import { setTheme } from '@/features/theme/utils/themeSlice';
 import { Moon, Sun } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { setTheme } from '@/features/theme/utils/themeSlice';
 
 interface ThemeProps {
     themeName: string;
@@ -13,7 +12,8 @@ interface ThemeProps {
 const ThemeSelectCard: React.FC<ThemeProps> = ({ themeName, image }) => {
     const dispatch = useDispatch();
     const currentTheme = useSelector((state: any) => state.currentTheme.value);
-    const isDisabled = themeName !== 'Light default' && themeName !== 'Dark default';
+    const isDisabled =
+        themeName !== 'Light default' && themeName !== 'Dark default';
 
     const normalizeThemeName = (themeName: string) => {
         console.log('themeName', themeName);

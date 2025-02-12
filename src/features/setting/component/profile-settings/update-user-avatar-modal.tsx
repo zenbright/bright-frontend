@@ -1,5 +1,6 @@
 import { XCircle } from 'lucide-react';
 import React from 'react';
+
 import ImageCropper from './image_cropper';
 
 const UpdateUserAvatarModal = ({ closeModal }: { closeModal: () => void }) => {

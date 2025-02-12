@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-
 /* eslint-disable react/prop-types */
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';

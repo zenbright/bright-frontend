@@ -173,7 +173,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         const base = !open && !shouldCheckMousePosition ? 3 : 14;
         setSidebarWidth(
             base *
-            parseFloat(getComputedStyle(document.documentElement).fontSize)
+                parseFloat(getComputedStyle(document.documentElement).fontSize)
         );
     }, [open, shouldCheckMousePosition]);
 
@@ -298,17 +298,29 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                         close={!open}
                                     >
                                         <DropdownMenuItem>
-                                            <NavLink to={`/profile`} className="flex items-center gap-2">
-                                                <UserCircle size={16} /> {'Profile'}
+                                            <NavLink
+                                                to={`/profile`}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <UserCircle size={16} />{' '}
+                                                {'Profile'}
                                             </NavLink>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
-                                            <NavLink to={`/settings`} className="flex items-center gap-2">
-                                                <Settings size={16} /> {'Settings'}
+                                            <NavLink
+                                                to={`/settings`}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <Settings size={16} />{' '}
+                                                {'Settings'}
                                             </NavLink>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
-                                            <span className='flex items-center gap-2'> <UserRoundX size={16} /> Sign out</span>
+                                            <span className="flex items-center gap-2">
+                                                {' '}
+                                                <UserRoundX size={16} /> Sign
+                                                out
+                                            </span>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

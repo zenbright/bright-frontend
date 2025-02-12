@@ -5,9 +5,9 @@ import Dashboard from '@features/dashboard';
 import { LandingPage } from '@features/landingPage';
 import MessagePage from '@features/message';
 import AccountSettingPage from '@features/setting/component/account-settings/account-page';
-import AppearanceSettingPage from '@features/setting/component/theme-settings/appearance-page';
 import NotificationSettingPage from '@features/setting/component/notification-settings/notification-page';
 import ProfileSettingPage from '@features/setting/component/profile-settings/profile-page';
+import AppearanceSettingPage from '@features/setting/component/theme-settings/appearance-page';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'overlayscrollbars/styles/overlayscrollbars.css';
 import { useEffect } from 'react';
@@ -51,10 +51,19 @@ const router = createBrowserRouter(
                         index
                         element={<Navigate to="edit-profile" replace />}
                     />
-                    <Route path="edit-profile" element={<ProfileSettingPage />} />
+                    <Route
+                        path="edit-profile"
+                        element={<ProfileSettingPage />}
+                    />
                     <Route path="account" element={<AccountSettingPage />} />
-                    <Route path="appearance" element={<AppearanceSettingPage />} />
-                    <Route path="notification" element={<NotificationSettingPage />} />
+                    <Route
+                        path="appearance"
+                        element={<AppearanceSettingPage />}
+                    />
+                    <Route
+                        path="notification"
+                        element={<NotificationSettingPage />}
+                    />
                 </Route>
 
                 {/* Dashboard */}

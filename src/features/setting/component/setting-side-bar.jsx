@@ -1,8 +1,7 @@
 import { Separator } from '@/components/ui/separator';
-import { useState } from 'react';
-
-import SETTING_TABS from '@features/setting/data/setting';
 import SettingTab from '@features/setting/component/setting-tab';
+import SETTING_TABS from '@features/setting/data/setting';
+import { useState } from 'react';
 
 function SettingSideBar() {
     const [selectedActive, setSelectedActive] = useState(0);

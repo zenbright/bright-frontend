@@ -17,13 +17,13 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
+import { NOTIFICATION } from '@features/setting/data/strings';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import withScrollbarTheme from '../../hoc/scroll-bar';
-import { NOTIFICATION } from '@features/setting/data/strings';
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -94,7 +94,7 @@ function NotificationSettingPage() {
     };
 
     return (
-        <div className="container flex flex-col pb-10 w-full">
+        <div className="container flex w-full flex-col pb-10">
             <div className="group bg-background sticky z-30 mx-3 flex flex-col gap-4 pt-8 pb-[14px] text-2xl font-light">
                 {'Notification'}
                 <Separator />

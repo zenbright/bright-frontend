@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NavigatableButton } from '@/components/ui/navigatable-button';
 import {
     Select,
     SelectContent,
@@ -27,14 +28,13 @@ import { BellDot } from 'lucide-react';
 import { Settings } from 'lucide-react';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import CardContainer from './card-container/card-container.tsx';
 import { CurrentPlanLimitContainer } from './current-plan-limit/current-plan-limit-container.tsx';
 import { NotificationPopover } from './noti-popover/notification-popover.tsx';
 import Chart from './project-stats/chart.jsx';
 import TaskPage from './task-list/task-page.tsx';
-import { NavLink } from 'react-router-dom';
-import { NavigatableButton } from '@/components/ui/navigatable-button';
 
 function Dashboard() {
     const dataViewMode = useSelector(state => state.dataViewMode.current);
