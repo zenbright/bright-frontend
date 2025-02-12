@@ -9,7 +9,7 @@ export const LandingAuthLayout = () => {
         <div>
             <Outlet />
             <Toaster />
-            <div className="fixed right-0 bottom-0 left-0">
+            <div className="fixed right-0 bottom-0 left-0 mb-5">
                 <DeveloperDock />
             </div>
         </div>
