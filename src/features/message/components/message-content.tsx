@@ -1,31 +1,33 @@
 /* eslint-disable max-len */
+import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Info } from 'lucide-react';
-import { PlusCircle } from 'lucide-react';
-import { Image } from 'lucide-react';
-import { SmilePlus } from 'lucide-react';
-import { SendHorizonal } from 'lucide-react';
-import { MessageCircleCode } from 'lucide-react';
+import { Info, PlusCircle, Image, SmilePlus, SendHorizonal, MessageCircleCode } from 'lucide-react';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
 import { SAMPLE_MESSAGE } from '../test/values';
 import { Message } from '../utils/class';
 import { MessageBubble } from './message-bubble';
 
-export const MessageContent = ({
+interface MessageContentProps {
+    selectedMessage: number;
+    onlineStatus: boolean;
+    userName?: string;
+    userProfileImage?: string;
+}
+
+export const MessageContent: React.FC<MessageContentProps> = ({
     selectedMessage,
     onlineStatus,
     userName = 'Unknown',
     userProfileImage,
 }) => {
     const [userMessageInput, setUserMessageInput] = useState('');
-    const [userMessage, setMessageList] = useState([]);
+    const [userMessage, setMessageList] = useState<Message[]>([]);
     const [isPageLoad, setIsPageLoad] = useState(false);
 
-    const messagesEndRef = useRef(null);
+    const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         setMessageList(SAMPLE_MESSAGE);
@@ -60,7 +62,7 @@ export const MessageContent = ({
         }
     };
 
-    const MessageList = () => {
+    const MessageList: React.FC = () => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {userMessage.map((message, index) => (
@@ -168,11 +170,4 @@ export const MessageContent = ({
             </div>
         );
     }
-};
-
-MessageContent.propTypes = {
-    selectedMessage: PropTypes.number,
-    onlineStatus: PropTypes.bool,
-    userName: PropTypes.string,
-    messageList: PropTypes.array,
 };

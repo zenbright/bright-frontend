@@ -1,29 +1,40 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import React, { useState, CSSProperties } from 'react';
 
-export const MessageBubble = ({ content = 'hello', isUserMessage = false }) => {
+interface MessageBubbleProps {
+    content: string;
+    isUserMessage: boolean;
+}
+
+interface Points {
+    x: number;
+    y: number;
+}
+
+export const MessageBubble: React.FC<MessageBubbleProps> = ({ content = 'hello', isUserMessage = false }) => {
     const bgColor = isUserMessage ? 'bg-black text-white' : 'bg-gray-100';
     const [isRightClicked, setRightClicked] = useState(false);
     const [isDeleted, setIsDeleteMessage] = useState(false);
 
-    const [points, setPoints] = useState({
+    const [points, setPoints] = useState<Points>({
         x: 0,
         y: 0,
     });
 
     if (isDeleted) {
-        return;
+        return null;
     }
+
+    const bubbleStyle: CSSProperties = {
+        maxWidth: '300px',
+        wordBreak: 'break-all',
+        overflow: 'hidden',
+        display: 'inline-block',
+        alignSelf: !isUserMessage ? 'flex-start' : 'flex-end',
+    };
 
     return (
         <span
-            style={{
-                maxWidth: '300px',
-                wordBreak: 'break-all',
-                overflow: 'hidden',
-                display: 'inline-block',
-                alignSelf: !isUserMessage ? 'flex-start' : 'flex-end',
-            }}
+            style={bubbleStyle}
             className={`mx-4 my-1 rounded-lg p-3 ${bgColor} text-md`}
             onContextMenu={e => {
                 e.preventDefault();
@@ -67,9 +78,4 @@ export const MessageBubble = ({ content = 'hello', isUserMessage = false }) => {
             )}
         </span>
     );
-};
-
-MessageBubble.propTypes = {
-    content: PropTypes.string.isRequired,
-    isUserMessage: PropTypes.bool.isRequired,
 };

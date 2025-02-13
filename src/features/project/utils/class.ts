@@ -1,12 +1,11 @@
 import { differenceInDays } from 'date-fns';
-import { randomUUID } from 'crypto';
-
+import { v4 as uuidv4 } from 'uuid';
 export class Column {
     id: string;
     title: string;
 
     constructor(title: string) {
-        this.id = randomUUID();
+        this.id = uuidv4();
         this.title = title;
     }
 }
@@ -24,7 +23,7 @@ export class Task {
     endDate: Date;
 
     constructor(columnId: string, title: string, des: string, startDate: Date, endDate: Date, tags: string[] = []) {
-        this.id = randomUUID();
+        this.id = uuidv4()
         this.columnId = columnId;
         this.title = title;
         this.des = des;
@@ -75,7 +74,7 @@ export class TaskTag {
     color: string;
 
     constructor(title: string, color: string = 'bg-gray-500') {
-        this.id = randomUUID();
+        this.id = uuidv4();
         this.title = title;
         this.color = color;
     }

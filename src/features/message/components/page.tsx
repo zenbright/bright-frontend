@@ -1,12 +1,21 @@
+import React from 'react';
 import { faker } from '@faker-js/faker';
 import { format } from 'date-fns';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, ChangeEvent } from 'react';
 
-import { MessagePreviewTab } from '../components/message-preview-tab';
+import { MessagePreviewTab } from './message-preview-tab';
 import { MessageContent } from './message-content';
 
-const FakeMessages = Array.from({ length: 10 }, (_, i) => ({
+interface Message {
+    id: number;
+    userName: string;
+    profileImage: string;
+    message: string;
+    sentTime: Date;
+}
+
+const FakeMessages: Message[] = Array.from({ length: 10 }, (_, i) => ({
     id: i,
     userName: faker.internet.username(),
     profileImage: faker.image.avatar(),
@@ -15,10 +24,10 @@ const FakeMessages = Array.from({ length: 10 }, (_, i) => ({
 }));
 
 export const MessagePage = () => {
-    const [selectedMessage, setSelectedMessage] = useState(-1);
-    const [searchPhrase, setSearchPhrase] = useState('');
+    const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+    const [searchPhrase, setSearchPhrase] = useState<string>('');
 
-    const isContain = (str, search) => {
+    const isContain = (str: string, search: string): boolean => {
         const normalizedStr = str.toLowerCase();
         const normalizedSearch = search.toLowerCase();
         for (const char of normalizedSearch) {
@@ -29,7 +38,7 @@ export const MessagePage = () => {
         return true;
     };
 
-    const handleSearchInputChange = event => {
+    const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setSearchPhrase(value);
     };
@@ -44,7 +53,7 @@ export const MessagePage = () => {
                 onClick={() => {
                     setSelectedMessage(message);
                 }}
-                isSelected={selectedMessage === message.id}
+                isSelected={selectedMessage?.id === message.id}
                 sentTime={format(message.sentTime, 'hh:mm a')}
                 userName={message.userName}
                 profileImage={message.profileImage}
@@ -66,7 +75,7 @@ export const MessagePage = () => {
 
                 <OverlayScrollbarsComponent
                     element="div"
-                    options={{ scrollbars: { autoHide: 'auto' } }}
+                    options={{ scrollbars: { autoHide: 'scroll' } }}
                     defer
                     className="flex-1 overflow-auto"
                 >
@@ -79,9 +88,9 @@ export const MessagePage = () => {
                                 <MessagePreviewTab
                                     key={''}
                                     onClick={() => {
-                                        setSelectedMessage('');
+                                        setSelectedMessage(null);
                                     }}
-                                    isSelected={''}
+                                    isSelected={false}
                                     sentTime={''}
                                     userName={''}
                                     profileImage={''}
@@ -97,12 +106,14 @@ export const MessagePage = () => {
 
             {/* Message Content */}
             <div className="h-screen w-full overflow-auto">
-                <MessageContent
-                    selectedMessage={selectedMessage.id}
-                    onlineStatus={false}
-                    userName={selectedMessage.userName}
-                    userProfileImage={selectedMessage.profileImage}
-                />
+                {selectedMessage && (
+                    <MessageContent
+                        selectedMessage={selectedMessage.id}
+                        onlineStatus={false}
+                        userName={selectedMessage.userName}
+                        userProfileImage={selectedMessage.profileImage}
+                    />
+                )}
             </div>
         </div>
     );

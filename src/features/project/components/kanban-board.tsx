@@ -19,7 +19,7 @@ import { createPortal } from 'react-dom';
 import { Column, Task } from '@features/project/utils/class';
 import { ColumnContainer } from '@features/project/components/column/column-container';
 import { TaskContainer } from '@features/project/components/task/task-container';
-import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ColumnType {
     id: string;
@@ -34,6 +34,10 @@ interface TaskType {
     startDate: Date;
     endDate: Date;
     tags: string[];
+    des: string;
+    memList: any[];
+    todos: any[];
+    attachments: any[];
 }
 
 export const KanbanBoard = () => {
@@ -154,22 +158,19 @@ export const KanbanBoard = () => {
     };
 
     // Tasks
-    const createTask = (
-        colId: string,
-        title = '',
-        des = '',
-        startDate?: Date,
-        endDate?: Date,
-        tags?: string[]
-    ) => {
+    const createTask = (colId: string, task: Task) => {
         const newTask: TaskType = {
-            id: randomUUID(),
-            columnId: colId,
-            title,
-            description: des,
-            startDate: startDate || new Date(),
-            endDate: endDate || new Date(),
-            tags: tags || [],
+            id: task.id,
+            columnId: task.columnId,
+            title: task.title,
+            description: task.des, // Assuming 'des' is the description
+            startDate: task.startDate,
+            endDate: task.endDate,
+            tags: task.tags.map(tag => tag.toString()),
+            des: task.des,
+            memList: [],
+            todos: [],
+            attachments: []
         };
         setTaskList([...tasks, newTask]);
     };
@@ -199,13 +200,18 @@ export const KanbanBoard = () => {
                                             key={col.id}
                                             col={col}
                                             deleteColumn={deleteColumn}
-                                            updateColumnTitle={
-                                                updateColumnTitle
-                                            }
+                                            updateColumnTitle={updateColumnTitle}
                                             createTask={createTask}
                                             taskList={tasks.filter(
                                                 task => task.columnId === col.id
-                                            )}
+                                            ).map(task => new Task(
+                                                task.columnId,
+                                                task.title,
+                                                task.des,
+                                                task.startDate,
+                                                task.endDate,
+                                                task.tags.map(tag => tag.toString())
+                                            ))}
                                         />
                                     </div>
                                 ))}
@@ -227,14 +233,34 @@ export const KanbanBoard = () => {
                                 <ColumnContainer
                                     col={activeColumn}
                                     deleteColumn={deleteColumn}
+                                    updateColumnTitle={updateColumnTitle}
+                                    createTask={createTask}
                                     taskList={tasks.filter(
                                         task =>
                                             task.columnId === activeColumn.id
-                                    )}
+                                    ).map(task => new Task(
+                                        task.columnId,
+                                        task.title,
+                                        task.des,
+                                        task.startDate,
+                                        task.endDate,
+                                        task.tags.map(tag => tag.toString())
+                                    ))}
                                 />
                             )}
 
-                            {activeTask && <TaskContainer task={activeTask} />}
+                            {activeTask && (
+                                <TaskContainer
+                                    task={new Task(
+                                        activeTask.columnId,
+                                        activeTask.title,
+                                        activeTask.des,
+                                        activeTask.startDate,
+                                        activeTask.endDate,
+                                        activeTask.tags.map(tag => tag.toString())
+                                    )}
+                                />
+                            )}
                         </DragOverlay>,
                         document.body
                     )}

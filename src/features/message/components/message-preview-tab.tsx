@@ -1,7 +1,16 @@
+import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import PropTypes from 'prop-types';
 
-export const MessagePreviewTab = ({
+interface MessagePreviewTabProps {
+    profileImage: string;
+    userName: string;
+    message: string;
+    sentTime: string;
+    isSelected: boolean;
+    onClick: () => void;
+}
+
+export const MessagePreviewTab: React.FC<MessagePreviewTabProps> = ({
     profileImage,
     userName,
     message,
@@ -35,13 +44,4 @@ export const MessagePreviewTab = ({
             </div>
         </div>
     );
-};
-
-MessagePreviewTab.propTypes = {
-    profileImage: PropTypes.string,
-    isSelected: PropTypes.bool,
-    userName: PropTypes.string,
-    message: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
-    sentTime: PropTypes.string,
 };

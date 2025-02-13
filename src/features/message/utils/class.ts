@@ -2,12 +2,12 @@ export class Message {
     private _content: string | undefined;
     private _createdDate: Date | undefined;
     private _sender: string | undefined;
-    private _isUserMessage: boolean;
-    constructor(content: string, createdDate: Date, sender: string) {
+    private _isUserMessage!: boolean;
+    constructor(content: string, createdDate: Date, sender: string, isUserMessage: boolean) {
         this.content = content;
         this.createdDate = createdDate;
         this.sender = sender;
-        this._isUserMessage = true;
+        this._isUserMessage = isUserMessage;
     }
 
     get isUserMessage(): boolean {

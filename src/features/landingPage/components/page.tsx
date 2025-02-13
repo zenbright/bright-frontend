@@ -23,9 +23,9 @@ import { useEffect } from 'react';
 import PMbad from '@features/landingPage/assets/pm-bad.png';
 import PMgood from '@features/landingPage/assets/pm-good.png';
 import { INTRODUCTION, WELCOME_TEXT } from '@features/landingPage/assets/strings';
-import AICard from '@features/landingPage/components/ai-card';
+import { AICard } from './ai-integration';
 import { Header } from '@features/landingPage/components/header';
-import { MissionGroup } from '@features/landingPage/components/mission-group';
+import { MissionGroup } from '@features/landingPage/components/mission';
 
 const words = [
     'project management tool',
