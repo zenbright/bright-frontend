@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { setTheme } from '@/features/theme/utils/themeSlice';
 import { Moon, Sun } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface ThemeProps {

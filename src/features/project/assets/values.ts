@@ -1,3 +1,5 @@
+import { ListTodo, Paperclip, Podcast } from "lucide-react";
+
 export const DEFAULT_TASK_TAG_ARRAY = [
     'medium?color=#b45309?title=Medium?description=Tasks with medium priority',
     'high?color=#be123c?title=High?description=Tasks with high priority',
@@ -12,7 +14,7 @@ export const DEFAULT_TASK_TAG_ARRAY = [
 ];
 
 export const TASK_DETAILED_TABS = [
-    { name: 'Overview' },
-    { name: 'To-dos' },
-    { name: 'Files' },
+    { name: 'Discussion', icon: Podcast, isDisabled: false },
+    { name: 'Todos', icon: ListTodo, isDisabled: false },
+    { name: 'Attachments', icon: Paperclip, isDisabled: false },
 ];

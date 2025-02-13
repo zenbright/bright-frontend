@@ -21,6 +21,7 @@ interface FormInputLabelProps<TFieldValues extends FieldValues> {
     label: string;
     placeholder?: string;
     className?: string;
+    type?: string;
 }
 
 const FormInputLabel = <TFieldValues extends FieldValues>({
