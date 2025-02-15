@@ -14,18 +14,15 @@ import {
     SidebarMenuItem,
 } from '@components/ui/sidebar';
 import {
-    ArrowRight,
     ChevronDown,
     ChevronUp,
     Layers2,
-    Plus,
     Settings,
     UserCircle,
     UserRoundX,
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-
 import { items, itemsAbout, itemsHelp } from '../data/data';
 import { CollapsibleSidebarGroup } from '@/components/sidebar/component/collapsible-sidebar-group';
 
@@ -33,6 +30,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
     const [shouldCheckMousePosition, setShouldCheckMousePosition] =
         React.useState(false);
     const [sidebarWidth, setSidebarWidth] = React.useState(1);
+    const [isOpenFooterDropdown, setIsOpenFooterDropdown] = React.useState(false);
 
     useEffect(() => {
         const base = !open && !shouldCheckMousePosition ? 3 : 14;
@@ -46,6 +44,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         if (event.clientX > sidebarWidth) {
             setOpen(false);
             setShouldCheckMousePosition(false);
+            setIsOpenFooterDropdown(false);
         } else {
             setOpen(true);
         }
@@ -69,7 +68,6 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         const sidebarName = 'sidebar:state';
         const sidebarOpen = localStorage.getItem(sidebarName);
 
-        console.log('sidebarOpen', sidebarOpen);
         if (sidebarOpen !== null) {
             return true;
         }
@@ -125,7 +123,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarHeader>
-                    
+
                     <SidebarContent>
                         <CollapsibleSidebarGroup
                             label="Project Management"
@@ -146,16 +144,18 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                     <SidebarFooter>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
+                                <DropdownMenu open={isOpenFooterDropdown}>
+                                    <DropdownMenuTrigger asChild className='w-full' onClick={() => setIsOpenFooterDropdown(!isOpenFooterDropdown)}>
                                         <SidebarMenuButton>
-                                            <UserCircle /> Mudoker
+                                            <UserCircle /> {"Mudoker"}
                                             <ChevronUp className="ml-auto" />
                                         </SidebarMenuButton>
                                     </DropdownMenuTrigger>
+
                                     <DropdownMenuContent
                                         side="top"
-                                        className="w-[--radix-popper-anchor-width]"
+                                        className='w-[--radix-popper-anchor-width]'
+                                        onClick={() => setIsOpenFooterDropdown(false)}
                                     >
                                         <DropdownMenuItem>
                                             <NavLink
@@ -166,6 +166,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                                 {'Profile'}
                                             </NavLink>
                                         </DropdownMenuItem>
+
                                         <DropdownMenuItem>
                                             <NavLink
                                                 to={`/settings`}
@@ -175,11 +176,11 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                                 {'Settings'}
                                             </NavLink>
                                         </DropdownMenuItem>
+
                                         <DropdownMenuItem>
                                             <span className="flex items-center gap-2">
                                                 {' '}
-                                                <UserRoundX size={16} /> Sign
-                                                out
+                                                <UserRoundX size={16} /> {"Sign Out"}
                                             </span>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
