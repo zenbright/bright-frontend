@@ -1,9 +1,4 @@
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from '@components/ui/collapsible';
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -13,167 +8,35 @@ import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
 } from '@components/ui/sidebar';
 import {
-    ArrowRight,
     ChevronDown,
     ChevronUp,
     Layers2,
-    Plus,
     Settings,
     UserCircle,
     UserRoundX,
 } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-
-import { items, itemsAbout, itemsHelp, listOfProjects } from '../data/data';
-
-// Define the type for menu items
-interface MenuItem {
-    title: string;
-    url: string;
-    icon: any;
-}
-
-interface CollapsibleSidebarGroupProps {
-    label: string;
-    items: MenuItem[];
-    actionTitle?: string;
-    open?: boolean;
-}
-
-const CollapsibleSidebarGroup: React.FC<CollapsibleSidebarGroupProps> = ({
-    label,
-    items,
-    open,
-}) => (
-    <Collapsible defaultOpen className="group/collapsible">
-        <SidebarGroup>
-            <SidebarGroupLabel asChild>
-                <CollapsibleTrigger>
-                    {label}
-                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                </CollapsibleTrigger>
-            </SidebarGroupLabel>
-            <CollapsibleContent>
-                <SidebarGroupContent>
-                    <SidebarMenu>
-                        {items.map((item, index) => {
-                            const key = `${item.title}-${index}`;
-                            if (item.title === 'Projects') {
-                                return (
-                                    <Collapsible
-                                        key={key}
-                                        defaultOpen
-                                        className="group/collapsible"
-                                    >
-                                        <SidebarMenuItem>
-                                            <CollapsibleTrigger asChild>
-                                                <div className="flex">
-                                                    <SidebarMenuButton asChild>
-                                                        <NavLink to={item.url}>
-                                                            <item.icon />
-                                                            <span>
-                                                                {item.title}
-                                                            </span>
-                                                        </NavLink>
-                                                    </SidebarMenuButton>
-
-                                                    {item.title ===
-                                                        'Projects' &&
-                                                        open && (
-                                                            <button
-                                                                onClick={(
-                                                                    e: any
-                                                                ) => {
-                                                                    e.stopPropagation();
-                                                                    console.log(
-                                                                        'ok'
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <Plus className="ml-auto h-4 w-4" />
-                                                            </button>
-                                                        )}
-                                                </div>
-                                            </CollapsibleTrigger>
-                                            <CollapsibleContent>
-                                                <SidebarMenuSub>
-                                                    {listOfProjects.map(
-                                                        project => (
-                                                            <SidebarMenuSubItem
-                                                                key={
-                                                                    project.title
-                                                                }
-                                                            >
-                                                                <SidebarMenuSubButton
-                                                                    asChild
-                                                                >
-                                                                    <a
-                                                                        href={
-                                                                            project.url
-                                                                        }
-                                                                    >
-                                                                        <span>
-                                                                            {
-                                                                                project.title
-                                                                            }
-                                                                        </span>
-                                                                        <ArrowRight className="ml-auto" />
-                                                                    </a>
-                                                                </SidebarMenuSubButton>
-                                                            </SidebarMenuSubItem>
-                                                        )
-                                                    )}
-                                                </SidebarMenuSub>
-                                            </CollapsibleContent>
-                                        </SidebarMenuItem>
-                                    </Collapsible>
-                                );
-                            } else {
-                                return (
-                                    <SidebarMenuItem key={key}>
-                                        <SidebarMenuButton asChild>
-                                            <NavLink
-                                                to={item.url}
-                                                className="flex items-center gap-4"
-                                            >
-                                                <item.icon />
-                                                <span>{item.title}</span>
-                                            </NavLink>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                );
-                            }
-                        })}
-                    </SidebarMenu>
-                </SidebarGroupContent>
-            </CollapsibleContent>
-        </SidebarGroup>
-    </Collapsible>
-);
+import { items, itemsAbout, itemsHelp } from '../data/data';
+import { CollapsibleSidebarGroup } from '@/components/sidebar/component/collapsible-sidebar-group';
 
 export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
     const [shouldCheckMousePosition, setShouldCheckMousePosition] =
         React.useState(false);
     const [sidebarWidth, setSidebarWidth] = React.useState(1);
+    const [isOpenFooterDropdown, setIsOpenFooterDropdown] = React.useState(false);
 
     useEffect(() => {
         const base = !open && !shouldCheckMousePosition ? 3 : 14;
         setSidebarWidth(
             base *
-                parseFloat(getComputedStyle(document.documentElement).fontSize)
+            parseFloat(getComputedStyle(document.documentElement).fontSize)
         );
     }, [open, shouldCheckMousePosition]);
 
@@ -181,6 +44,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         if (event.clientX > sidebarWidth) {
             setOpen(false);
             setShouldCheckMousePosition(false);
+            setIsOpenFooterDropdown(false);
         } else {
             setOpen(true);
         }
@@ -204,7 +68,6 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
         const sidebarName = 'sidebar:state';
         const sidebarOpen = localStorage.getItem(sidebarName);
 
-        console.log('sidebarOpen', sidebarOpen);
         if (sidebarOpen !== null) {
             return true;
         }
@@ -218,8 +81,6 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
 
     // Define widths.
     const collapsedWidth = '3rem';
-    const extendedWidth = '14rem';
-    const overlayWidth = `calc(${extendedWidth} - ${collapsedWidth})`;
 
     // Mouse event handlers.
     const handleEnter = () => {
@@ -228,15 +89,12 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
     };
     const handleLeave = () => {
         if (isPersistSidebarOn()) return;
-        // ...existing logic...
         setShouldCheckMousePosition(true);
     };
 
     return (
         <div>
-            {/* Reserved (base) sidebar: occupies space in the layout */}
             <div
-                className="relative z-40 transition-all duration-300 ease-in-out"
                 style={{ width: collapsedWidth }}
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
@@ -265,6 +123,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarHeader>
+
                     <SidebarContent>
                         <CollapsibleSidebarGroup
                             label="Project Management"
@@ -285,17 +144,18 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                     <SidebarFooter>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
+                                <DropdownMenu open={isOpenFooterDropdown}>
+                                    <DropdownMenuTrigger asChild className='w-full' onClick={() => setIsOpenFooterDropdown(!isOpenFooterDropdown)}>
                                         <SidebarMenuButton>
-                                            <UserCircle /> Mudoker
+                                            <UserCircle /> {"Mudoker"}
                                             <ChevronUp className="ml-auto" />
                                         </SidebarMenuButton>
                                     </DropdownMenuTrigger>
+
                                     <DropdownMenuContent
                                         side="top"
-                                        className="w-[--radix-popper-anchor-width]"
-                                        close={!open}
+                                        className='w-[--radix-popper-anchor-width]'
+                                        onClick={() => setIsOpenFooterDropdown(false)}
                                     >
                                         <DropdownMenuItem>
                                             <NavLink
@@ -306,6 +166,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                                 {'Profile'}
                                             </NavLink>
                                         </DropdownMenuItem>
+
                                         <DropdownMenuItem>
                                             <NavLink
                                                 to={`/settings`}
@@ -315,11 +176,11 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                                 {'Settings'}
                                             </NavLink>
                                         </DropdownMenuItem>
+
                                         <DropdownMenuItem>
                                             <span className="flex items-center gap-2">
                                                 {' '}
-                                                <UserRoundX size={16} /> Sign
-                                                out
+                                                <UserRoundX size={16} /> {"Sign Out"}
                                             </span>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
