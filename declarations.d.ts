@@ -12,3 +12,4 @@ declare module '@/*';
 
 // src/tailwindcss.d.ts
 declare module 'tailwindcss/lib/util/flattenColorPalette';
+declare module 'vite-tsconfig-paths';

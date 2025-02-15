@@ -250,7 +250,7 @@ export function DeveloperDock() {
     ];
 
     return (
-        <div className="relative flex h-[35rem] w-full items-center justify-center">
+        <div className="relative flex h-fit w-full items-center justify-center">
             <FloatingDock mobileClassName="translate-y-20" items={links} />
             {devModeConfig.isSelectionMode && (
                 <div

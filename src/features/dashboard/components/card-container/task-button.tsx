@@ -15,9 +15,11 @@ export const TaskButton = ({
             variant="outline"
             className="h-14 w-[350px] text-xs text-neutral-500"
         >
-            <div className="text-xs w-12 mr-4">{taskID}</div>
-            <span className="text-sm font-semibold dark:text-white mx-2 truncate">{title}</span>
-            <span className="text-xs ml-auto">{time}</span>
-        </Button >
+            <div className="mr-4 w-12 text-xs">{taskID}</div>
+            <span className="mx-2 truncate text-sm font-semibold dark:text-white">
+                {title}
+            </span>
+            <span className="ml-auto text-xs">{time}</span>
+        </Button>
     );
 };

@@ -1,240 +1,150 @@
-import React from "react"
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
-import { useLocation } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { commandData } from "../data/data"
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+    CommandShortcut,
+} from '@/components/ui/command';
+import { ViewMode } from '@/features/dev-dock/data/type';
+import { setDataViewMode } from '@/features/dev-dock/utils/data-slice';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
-type CommandType = {
-  title: string
-  icon?: JSX.Element
-  shortcut?: string
-  action?: () => void
-  children?: CommandType[]
-  disabled?: boolean
-}
+import { commandData } from '../data/data';
+import { useCommandPanelController } from '../hooks/useCommandPanelController';
 
-export const CommandPanel: React.FC = () => {
-  const [open, setOpen] = React.useState(false)
-  const [nestedCommands, setNestedCommands] = React.useState<CommandType[] | null>(null)
-  const [showAll, setShowAll] = React.useState(false)
-  const location = useLocation()
+type CommandPanelProps = {
+    open?: boolean;
+    setOpen?: (open: boolean) => void;
+};
 
-  // Retrieve current selections from Redux and localStorage.
-  const currentTheme = useSelector((state: any) => state.currentTheme.value)
-  const currentDataView = useSelector((state: any) => state.dataViewMode.current)
-  const [language, setLanguage] = React.useState(localStorage.getItem("devLanguage") || "EN")
-  // New: Manage selection mode state.
-  const [selectionMode, setSelectionMode] = React.useState(localStorage.getItem("selectionMode") === 'true')
+export const CommandPanel: React.FC<CommandPanelProps> = props => {
+    const {
+        nestedCommands,
+        displayCommands,
+        modKey,
+        handleSelect: ctrlHandleSelect,
+    } = useCommandPanelController();
+    const dispatch = useDispatch();
+    const [open] = React.useState(props.open || false);
+    const [currentCommands, setCurrentCommands] = React.useState<any[]>([]);
+    const [commandStack, setCommandStack] = React.useState<any[][]>([]);
 
-  // Listen for custom events.
-  React.useEffect(() => {
-    const handleLanguageChange = (e: CustomEvent) => {
-      setLanguage(e.detail)
-    }
-    window.addEventListener("languageChanged", handleLanguageChange as EventListener)
-    return () => {
-      window.removeEventListener("languageChanged", handleLanguageChange as EventListener)
-    }
-  }, [])
+    // Compute flat list of items for navigation.
+    const flatItems = currentCommands.length
+        ? currentCommands
+        : nestedCommands
+          ? nestedCommands
+          : displayCommands
+            ? displayCommands
+            : Object.values(commandData).flat();
 
-  // Listen for selection mode changes.
-  React.useEffect(() => {
-    const handleSelectionModeChange = (e: CustomEvent) => {
-      setSelectionMode(e.detail)
-    }
-    window.addEventListener("selectionModeChanged", handleSelectionModeChange as EventListener)
-    return () => {
-      window.removeEventListener("selectionModeChanged", handleSelectionModeChange as EventListener)
-    }
-  }, [])
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  // Only enable on pages not in landing or auth routes.
-  const isEnabled = !/^(\/(auth|landing)?)/.test(location.pathname)
-
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (isEnabled && e.key === "j" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen(prev => !prev)
-        setNestedCommands(null)
-        setShowAll(false)
-      }
-    }
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [isEnabled])
-
-  // New: Toggle selection mode function.
-  const toggleSelectionMode = () => {
-    setSelectionMode(prev => {
-      const newMode = !prev;
-      localStorage.setItem("selectionMode", String(newMode));
-      window.dispatchEvent(new CustomEvent("selectionModeChanged", { detail: newMode }));
-      return newMode;
-    });
-  };
-
-  // New: Implement selection mode visual logic.
-  React.useEffect(() => {
-    if (!selectionMode) return;
-    const highlighter = document.createElement("div");
-    // Set initial styles for the highlighter.
-    highlighter.style.position = "absolute";
-    highlighter.style.pointerEvents = "none";
-    highlighter.style.border = "2px dashed rgba(0, 123, 255, 0.8)";
-    highlighter.style.backgroundColor = "rgba(0, 123, 255, 0.2)";
-    highlighter.style.transition = "all 0.1s ease";
-    document.body.appendChild(highlighter);
-
-    const handleMouseEnter = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const rect = target.getBoundingClientRect();
-      highlighter.style.width = rect.width + "px";
-      highlighter.style.height = rect.height + "px";
-      highlighter.style.left = (rect.left + window.scrollX) + "px";
-      highlighter.style.top = (rect.top + window.scrollY) + "px";
-      highlighter.style.zIndex = "9999";
+    const handleSelect = (item: any) => {
+        if (item.children) {
+            setCommandStack(prev => [...prev, flatItems]);
+            setCurrentCommands(item.children);
+            setSelectedIndex(0);
+        } else if (item.title.toLowerCase() === 'back') {
+            const previousCommands = commandStack.pop();
+            setCurrentCommands(previousCommands || []);
+            setSelectedIndex(0);
+        } else {
+            if (props.setOpen) props.setOpen(false);
+            ctrlHandleSelect(item);
+        }
     };
 
-    const handleMouseLeave = () => {
-      highlighter.style.width = "0";
-      highlighter.style.height = "0";
+    // Handle arrow key navigation.
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (!flatItems.length) return;
+        const totalItems = flatItems.length + (commandStack.length > 0 ? 1 : 0);
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev + 1) % totalItems);
+        }
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setSelectedIndex(prev => (prev - 1 + totalItems) % totalItems);
+        }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSelect(flatItems[selectedIndex] || { title: 'Back' });
+        }
     };
 
-    document.addEventListener("mouseenter", handleMouseEnter, true);
-    document.addEventListener("mouseleave", handleMouseLeave, true);
+    // Ref for the outer container.
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
-    return () => {
-      document.removeEventListener("mouseenter", handleMouseEnter, true);
-      document.removeEventListener("mouseleave", handleMouseLeave, true);
-      document.body.removeChild(highlighter);
-    };
-  }, [selectionMode]);
+    React.useEffect(() => {
+        if (open) {
+            setSelectedIndex(0);
+            containerRef.current?.focus();
+        }
+    }, [open]);
 
-  const handleSelect = (item: CommandType) => {
-    if (item.title === "Toggle Selection Mode") {
-      toggleSelectionMode();
-      setOpen(false);
-      setNestedCommands(null);
-      return;
-    } else if (item.children) {
-      setNestedCommands(item.children)
-    } else if (item.title.toLowerCase() === "back") {
-      setNestedCommands(null)
-    } else if (item.title === "Show More") {
-      setShowAll(true)
-    } else {
-      item.action && item.action()
-      setOpen(false)
-      setNestedCommands(null)
-    }
-  }
+    if (!open) return null;
 
-  // Helper: for selection-based commands, return the current value.
-  const getCurrentSelection = (title: string) => {
-    if (title === "Toggle Theme") return currentTheme
-    if (title === "Select Language") return language
-    if (title === "Change Data View") return currentDataView
-    if (title === "Toggle Selection Mode") return selectionMode ? "ON" : "OFF"
-    return null
-  }
+    return (
+        <div
+            ref={containerRef}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            style={{
+                outline: 'none',
+                overflow: 'hidden',
+                position: 'relative',
+            }}
+        >
+            <Command className="fixed top-44 left-auto h-fit w-fit rounded-lg border shadow-md md:min-w-[450px]">
+                <CommandInput placeholder="Type a command or search..." />
+                <CommandList>
+                    <CommandEmpty>No results found.</CommandEmpty>
+                    {flatItems.map((item, index) => (
+                        <CommandItem
+                            key={index}
+                            disabled={item.disabled}
+                            onSelect={() => handleSelect(item)}
+                            data-selected={
+                                selectedIndex === index ? 'true' : undefined
+                            }
+                            className={
+                                selectedIndex === index ? 'bg-accent' : ''
+                            }
+                        >
+                            {item.icon || null}
+                            <span>{item.title}</span>
+                            {item.shortcut && (
+                                <CommandShortcut>
+                                    {modKey + item.shortcut}
+                                </CommandShortcut>
+                            )}
+                        </CommandItem>
+                    ))}
 
-  // Prepare a flattened list (in order) from all groups.
-  const flattenedCommands = React.useMemo(() => {
-    const order = ["Common", "Developer", "System", "Appearance"]
-    const list: CommandType[] = []
-    order.forEach((group) => {
-      const cmds = commandData[group as keyof typeof commandData] || []
-      list.push(...cmds)
-    })
-    return list
-  }, [])
-
-  // Limit to first 7 items if not showing all.
-  const displayCommands = !showAll && !nestedCommands ? flattenedCommands.slice(0, 7) : null
-
-  const isMac = typeof window !== "undefined" && /Mac/.test(navigator.platform)
-  const modKey = isMac ? "⌘" : "Ctrl"
-
-  if (!open) return null
-
-  return (
-    <Command className="rounded-lg border shadow-md md:min-w-[450px]">
-      <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        {nestedCommands ? (
-          // Render nested commands view.
-          nestedCommands.map((item, index) => (
-            <CommandItem key={index} disabled={item.disabled} onSelect={() => handleSelect(item)}>
-              {item.icon || null}
-              <span>{item.title}</span>
-              {getCurrentSelection(item.title) && (
-                <span className="ml-auto text-xs text-muted-foreground">
-                  {getCurrentSelection(item.title)}
-                </span>
-              )}
-            </CommandItem>
-          ))
-        ) : displayCommands ? (
-          // Render flattened view with limited items plus "Show More".
-          <>
-            {displayCommands.map((item, index) => (
-              <CommandItem key={index} disabled={item.disabled} onSelect={() => handleSelect(item)}>
-                {item.icon || null}
-                <span>{item.title}</span>
-                {item.shortcut && (
-                  <CommandShortcut>{modKey + item.shortcut}</CommandShortcut>
-                )}
-                {getCurrentSelection(item.title) && (
-                  <span className="ml-auto text-xs text-muted-foreground">
-                    {getCurrentSelection(item.title)}
-                  </span>
-                )}
-              </CommandItem>
-            ))}
-            {flattenedCommands.length > 7 && (
-              <CommandItem onSelect={() => handleSelect({ title: "Show More" })}>
-                <span>Show More</span>
-              </CommandItem>
-            )}
-          </>
-        ) : (
-          // Render grouped view.
-          Object.entries(commandData).map(
-            ([groupName, items], groupIndex, groups) => (
-              <React.Fragment key={groupName}>
-                <CommandGroup heading={groupName}>
-                  {(items as CommandType[]).map((item) => (
-                    <CommandItem key={item.title} disabled={item.disabled} onSelect={() => handleSelect(item)}>
-                      {item.icon || null}
-                      <span>{item.title}</span>
-                      {item.shortcut && (
-                        <CommandShortcut>{modKey + item.shortcut}</CommandShortcut>
-                      )}
-                      {getCurrentSelection(item.title) && (
-                        <span className="ml-auto text-xs text-muted-foreground">
-                          {getCurrentSelection(item.title)}
-                        </span>
-                      )}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-                {groupIndex < groups.length - 1 && <CommandSeparator />}
-              </React.Fragment>
-            )
-          )
-        )}
-      </CommandList>
-    </Command>
-  )
-}
+                    {commandStack.length > 0 && (
+                        <CommandItem
+                            onSelect={() => handleSelect({ title: 'Back' })}
+                            data-selected={
+                                selectedIndex === flatItems.length
+                                    ? 'true'
+                                    : undefined
+                            }
+                            className={
+                                selectedIndex === flatItems.length
+                                    ? 'bg-accent'
+                                    : ''
+                            }
+                        >
+                            <span> &larr; Go Back</span>
+                        </CommandItem>
+                    )}
+                </CommandList>
+            </Command>
+        </div>
+    );
+};

@@ -30,9 +30,7 @@ import { useSelector } from 'react-redux';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
 import { DataFactory } from '../../utils/data-factory';
-import {
-    getValueDisparityBetweenTwoTimestamps,
-} from '../../utils/generator';
+import { getValueDisparityBetweenTwoTimestamps } from '../../utils/generator';
 import { TaskButton } from './task-button';
 
 // Define colors as constants
@@ -58,9 +56,9 @@ const MemoizedChart: React.FC<MemoizedChartProps> = React.memo(
         const disparity = useMemo(() => {
             return data.length > 0
                 ? getValueDisparityBetweenTwoTimestamps(
-                    data[0].data,
-                    data[data.length - 1].data
-                )
+                      data[0].data,
+                      data[data.length - 1].data
+                  )
                 : '0'; // Default to "0" if no data
         }, [data]);
 
@@ -88,7 +86,7 @@ const MemoizedChart: React.FC<MemoizedChartProps> = React.memo(
                 <CardContent>
                     <ChartContainer config={chartConfig}>
                         {data == null || data.length === 0 ? ( // Check for null, undefined, or empty array
-                            <div className="flex h-full items-center justify-center text-base text-muted-foreground">
+                            <div className="text-muted-foreground flex h-full items-center justify-center text-base">
                                 {'No data available'}
                             </div>
                         ) : (
@@ -122,13 +120,13 @@ const MemoizedChart: React.FC<MemoizedChartProps> = React.memo(
                     <div className="flex w-full items-start gap-2 text-sm">
                         <div className="grid gap-2">
                             <div
-                                className={`flex items-center gap-2 font-medium leading-none ${trendColor}`}
+                                className={`flex items-center gap-2 leading-none font-medium ${trendColor}`}
                             >
                                 {isPositive ? 'Going up by' : 'Going down by'}{' '}
                                 {disparity} this year
                                 <TrendIcon className="h-4 w-4" />
                             </div>
-                            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                            <div className="text-muted-foreground flex items-center gap-2 leading-none">
                                 {startInterval} - {endInterval} 2024
                             </div>
                         </div>
@@ -176,13 +174,13 @@ const UpcomingTask: React.FC<UpcommingTaskProps> = ({
     return (
         <Card className="flex flex-1 flex-col items-start">
             <CardHeader className="py-4">
-                <CardTitle className="flex items-center text-lg">
+                <CardTitle className="flex items-center gap-3 text-lg">
                     <span>{"Today's Task"}</span>
                     <div className="ml-auto flex flex-col gap-2">
                         <div className="flex gap-1">
                             <Button
                                 variant="outline"
-                                className="ml-auto h-fit border-0 px-3"
+                                className="ml-auto h-fit px-3"
                                 disabled={paging === 0}
                                 onClick={() => handlePaging('prev')}
                             >
@@ -214,12 +212,20 @@ const UpcomingTask: React.FC<UpcommingTaskProps> = ({
                                     />
                                 ))}
                                 <span className="mt-2 flex w-full justify-between pb-2 text-xs dark:text-neutral-400">
-                                    <span>{'Auto-refresh in 5 minutes'}</span>
+                                    <span>
+                                        {'Auto-refresh in'}
+                                        <Button
+                                            variant="link"
+                                            className="h-fit w-fit cursor-pointer p-0 text-xs"
+                                        >
+                                            {'5 minutes'}
+                                        </Button>
+                                    </span>
                                     Page {paging + 1} of 3
                                 </span>
                             </>
                         ) : (
-                            <div className="flex h-full w-full flex-col items-center justify-center gap-4 py-4 text-center text-muted-foreground">
+                            <div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-4 py-4 text-center">
                                 <CircleOff className="h-12 w-12" />
 
                                 <Button

@@ -1,133 +1,118 @@
-import React from 'react'
 import {
-    HelpCircle,
     ArrowRightCircle,
-    LogOut,
-    MoreHorizontal,
-    MousePointer,
-    Globe,
-    Layout,
-    RotateCw,
+    Database,
+    DatabaseBackup,
+    DatabaseZap,
+    HelpCircle,
+    Home,
+    Moon,
+    Settings,
     Sun,
-    Database
-} from 'lucide-react'
-import {
-    toggleSelectionMode,
-    toggleLanguage,
-    toggleTheme,
-    changeDataView,
-    refreshData,
-} from '../utils/devFunctions'
+    User,
+} from 'lucide-react';
+import React from 'react';
+
+import { changeDataView, toggleTheme } from '../utils/devFunctions';
 
 // Order groups so that commonly used commands appear first.
 export const commandData = {
     Common: [
         {
-            title: "/help",
-            icon: <HelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "H",
+            title: 'Help',
+            icon: (
+                <HelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+            ),
+            shortcut: 'H',
             action: () => console.log('Help opened'),
         },
         {
-            title: "/navigate",
-            icon: <ArrowRightCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "N",
+            title: 'Navigate',
+            icon: (
+                <ArrowRightCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+            ),
+            shortcut: 'N',
             children: [
                 {
-                    title: "Dashboard",
-                    action: () => console.log("Navigating to /dashboard"),
+                    title: 'Dashboard',
+                    icon: (
+                        <Home className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                    action: () => (window.location.href = '/dashboard'),
                 },
                 {
-                    title: "Profile",
-                    action: () => console.log("Navigating to /profile"),
+                    title: 'Profile',
+                    icon: (
+                        <User className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                    action: () => (window.location.href = '/profile'),
                 },
                 {
-                    title: "Settings",
-                    action: () => console.log("Navigating to /settings"),
+                    title: 'Settings',
+                    icon: (
+                        <Settings className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                    action: () => (window.location.href = '/settings'),
                 },
                 {
-                    title: "Back",
-                    action: () => { }, // Handled in the panel via title check
+                    title: 'Go to previous page',
+                    icon: (
+                        <ArrowRightCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                    action: () => {
+                        window.history.back();
+                    },
                 },
             ],
-        },
-        {
-            title: "/logout",
-            icon: <LogOut className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "O",
-            action: () => console.log("Logging out"),
-        },
-        {
-            title: "/etc",
-            icon: <MoreHorizontal className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "E",
-            action: () => console.log("Additional utilities"),
-        },
-    ],
-    Developer: [
-        {
-            title: "Toggle Selection Mode",
-            icon: <MousePointer className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "S",
-            action: toggleSelectionMode,
-        },
-        {
-            title: "Select Language",
-            icon: <Globe className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "L",
-            children: [
-                {
-                    title: "English",
-                    action: () => {
-                        console.log("Language set to English")
-                        toggleLanguage()
-                    },
-                },
-                {
-                    title: "Spanish",
-                    action: () => {
-                        console.log("Language set to Spanish")
-                        toggleLanguage()
-                    },
-                },
-                {
-                    title: "French",
-                    action: () => {
-                        console.log("Language set to French")
-                        toggleLanguage()
-                    },
-                },
-                {
-                    title: "Back",
-                    action: () => { },
-                },
-            ],
-        },
-        {
-            title: "Show Dimensions",
-            icon: <Layout className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "D",
-            action: () => console.log('Displaying dimensions'),
-        },
-        {
-            title: "Refresh Data",
-            icon: <RotateCw className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "R",
-            action: refreshData,
         },
     ],
     Appearance: [
         {
-            title: "Toggle Theme",
-            icon: <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "T",
-            action: toggleTheme,
+            title: 'Toggle Theme',
+            icon: (
+                <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+            ),
+            shortcut: 'T',
+            children: [
+                {
+                    title: 'Light Default',
+                    icon: (
+                        <Sun className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                },
+                {
+                    title: 'Dark Default',
+                    icon: (
+                        <Moon className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                },
+            ],
         },
         {
-            title: "Change Data View",
-            icon: <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-            shortcut: "V",
-            action: changeDataView,
+            title: 'Change Data View',
+            icon: (
+                <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+            ),
+            shortcut: 'V',
+            children: [
+                {
+                    title: 'Fake Data',
+                    icon: (
+                        <DatabaseZap className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                },
+                {
+                    title: 'Real Data',
+                    icon: (
+                        <Database className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                },
+                {
+                    title: 'Empty Data',
+                    icon: (
+                        <DatabaseBackup className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+                    ),
+                },
+            ],
         },
     ],
-}
+};

@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { Button } from '@components/ui/button';
+import React, { FC } from 'react';
 
 interface IconButtonProps {
     icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; // Icon component
@@ -8,7 +8,12 @@ interface IconButtonProps {
     className?: string; // Additional CSS classes
 }
 
-const IconButton: FC<IconButtonProps> = ({ icon: Icon, label, onClick, className }) => {
+const IconButton: FC<IconButtonProps> = ({
+    icon: Icon,
+    label,
+    onClick,
+    className,
+}) => {
     return (
         <Button
             onClick={onClick}

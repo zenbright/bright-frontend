@@ -3,19 +3,41 @@
         "jsx": "react",
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"],
-            "@features/*": ["./src/features/*"],
-            "@utils/*": ["./src/utils/*"],
-            "@assets/*": ["./src/assets/*"],
-            "@test/*": ["./src/test/*"],
-            "@components/*": ["./src/components/*"],
-            "@constants/*": ["./src/config/constants/*"],
+            "@/*": [
+                "./src/*"
+            ],
+            "@features/*": [
+                "./src/features/*"
+            ],
+            "@utils/*": [
+                "./src/utils/*"
+            ],
+            "@assets/*": [
+                "./src/assets/*"
+            ],
+            "@test/*": [
+                "./src/test/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@constants/*": [
+                "./src/config/constants/*"
+            ],
+            "@layouts/*": [
+                "./src/layouts/*"
+            ]
         },
         "resolveJsonModule": true,
-        "target": "es5",
+        "target": "ES6",
         "module": "commonjs",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true
     },
-    "include": ["src", "./declarations.d.ts"]
+    "include": [
+        "src",
+        "./declarations.d.ts"
+    ]
 }
