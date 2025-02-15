@@ -21,6 +21,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 import * as React from 'react';
+import { forwardRef } from 'react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -518,19 +519,25 @@ const sidebarMenuButtonVariants = cva(
     }
 );
 
-function SidebarMenuButton({
-    asChild = false,
-    isActive = false,
-    variant = 'default',
-    size = 'default',
-    tooltip,
-    className,
-    ...props
-}: React.ComponentProps<'button'> & {
-    asChild?: boolean;
-    isActive?: boolean;
-    tooltip?: string | React.ComponentProps<typeof TooltipContent>;
-} & VariantProps<typeof sidebarMenuButtonVariants>) {
+const SidebarMenuButton = forwardRef<
+    HTMLButtonElement,
+    React.ComponentProps<'button'> & {
+        asChild?: boolean;
+        isActive?: boolean;
+        tooltip?: string | React.ComponentProps<typeof TooltipContent>;
+    } & VariantProps<typeof sidebarMenuButtonVariants>
+>(function SidebarMenuButton(
+    {
+        asChild = false,
+        isActive = false,
+        variant = 'default',
+        size = 'default',
+        tooltip,
+        className,
+        ...props
+    },
+    ref
+) {
     const Comp = asChild ? Slot : 'button';
     const { isMobile, state } = useSidebar();
 
@@ -544,6 +551,7 @@ function SidebarMenuButton({
                 sidebarMenuButtonVariants({ variant, size }),
                 className
             )}
+            ref={ref}
             {...props}
         />
     );
@@ -569,7 +577,7 @@ function SidebarMenuButton({
             />
         </Tooltip>
     );
-}
+});
 
 function SidebarMenuAction({
     className,
