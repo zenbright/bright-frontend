@@ -362,7 +362,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                     <NavLink to={`/settings`}>
-                                        <span className="text-base">
+                                        <span className="text-sm">
                                             {'Settings'}
                                         </span>
                                     </NavLink>
