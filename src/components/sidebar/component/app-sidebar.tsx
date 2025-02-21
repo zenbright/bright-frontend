@@ -141,55 +141,39 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                         />
                     </SidebarContent>
 
-                    <SidebarFooter>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <DropdownMenu open={isOpenFooterDropdown}>
-                                    <DropdownMenuTrigger asChild className='w-full' onClick={() => setIsOpenFooterDropdown(!isOpenFooterDropdown)}>
-                                        <SidebarMenuButton>
-                                            <UserCircle /> {"Mudoker"}
-                                            <ChevronUp className="ml-auto" />
-                                        </SidebarMenuButton>
-                                    </DropdownMenuTrigger>
-
-                                    <DropdownMenuContent
-                                        side="top"
-                                        className='w-[--radix-popper-anchor-width]'
-                                        onClick={() => setIsOpenFooterDropdown(false)}
-                                    >
-                                        <DropdownMenuItem>
-                                            <NavLink
-                                                to={`/profile`}
-                                                className="flex items-center gap-2"
-                                            >
-                                                <UserCircle size={16} />{' '}
-                                                {'Profile'}
-                                            </NavLink>
-                                        </DropdownMenuItem>
-
-                                        <DropdownMenuItem>
-                                            <NavLink
-                                                to={`/settings`}
-                                                className="flex items-center gap-2"
-                                            >
-                                                <Settings size={16} />{' '}
-                                                {'Settings'}
-                                            </NavLink>
-                                        </DropdownMenuItem>
-
-                                        <DropdownMenuItem>
-                                            <span className="flex items-center gap-2">
-                                                {' '}
-                                                <UserRoundX size={16} /> {"Sign Out"}
-                                            </span>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarFooter>
-                </Sidebar>
-            </div>
-        </div>
+            <SidebarFooter>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <SidebarMenuButton>
+                                    <UserCircle /> Mudoker
+                                    <ChevronUp className="ml-auto" />
+                                </SidebarMenuButton>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent
+                                side="top"
+                                className="w-[--radix-popper-anchor-width]"
+                                close={!open}
+                            >
+                                <DropdownMenuItem>
+                                    <span>Profile</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <NavLink to={`/settings`}>
+                                        <span className="text-sm">
+                                            {'Settings'}
+                                        </span>
+                                    </NavLink>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <span>Sign out</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </SidebarMenuItem>
+                </SidebarMenu>
+            </SidebarFooter>
+        </Sidebar>
     );
 }
