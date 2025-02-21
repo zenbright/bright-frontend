@@ -154,14 +154,13 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                             <DropdownMenuContent
                                 side="top"
                                 className="w-[--radix-popper-anchor-width]"
-                                close={!open}
                             >
                                 <DropdownMenuItem>
                                     <span>Profile</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                     <NavLink to={`/settings`}>
-                                        <span className="text-sm">
+                                        <span className="text-base">
                                             {'Settings'}
                                         </span>
                                     </NavLink>
@@ -175,5 +174,7 @@ export function AppSidebar({ setOpen, open }: { setOpen: any; open: boolean }) {
                 </SidebarMenu>
             </SidebarFooter>
         </Sidebar>
+    </div>
+</div>
     );
 }
